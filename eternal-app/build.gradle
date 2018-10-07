@@ -23,8 +23,8 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
+	// compile('groupID:アーティファクトID:バージョン')
 	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	//compile('org.springframework.boot:spring-boot-starter-data-redis')
 	//compile('org.springframework.boot:spring-boot-starter-jdbc')
@@ -33,5 +33,14 @@ dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
 	runtime('mysql:mysql-connector-java')
 	compileOnly('org.projectlombok:lombok')
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile('org.apache.commons:commons-lang3:3.8.1')
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+	compile('org.apache.commons:commons-collections4:4.2')
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+	compile('com.fasterxml.jackson.core:jackson-core:2.9.7')
+	// https://mvnrepository.com/artifact/org.eclipse.collections/eclipse-collections
+	compile('org.eclipse.collections:eclipse-collections-api:9.2.0')
+	compile('org.eclipse.collections:eclipse-collections:9.2.0')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
