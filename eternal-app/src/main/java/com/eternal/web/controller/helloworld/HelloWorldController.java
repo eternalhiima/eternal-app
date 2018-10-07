@@ -1,6 +1,6 @@
 package com.eternal.web.controller.helloworld;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ public class HelloWorldController {
 
 	/**
 	 * 疎通確認用のテストに使用する
-	 * @return
+	 * @return hello.html
 	 */
 	@RequestMapping("/hello")
 	public String helloWorld() {
@@ -22,15 +22,11 @@ public class HelloWorldController {
 
 	/**
 	 * webサーバーとのAPI通信のテストに使用する
-	 * @return
+	 * @return 名前リストjson
 	 */
 	@RequestMapping(value="/hellojson", method=RequestMethod.GET)
 	@ResponseBody
 	public List<String> helloJson() {
-		List<String> nameList = new ArrayList<>();
-		nameList.add("Taro");
-		nameList.add("Jiro");
-		nameList.add("Jack");
-		return nameList;
+		return Arrays.asList("Taro", "Jiro", "Jack");
 	}
 }
