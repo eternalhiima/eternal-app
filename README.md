@@ -1,5 +1,7 @@
 # eternal-app
-A server side of eternal
+> A server side of eternal
+
+> author @taiki0304
 
 ## 概要
 - eternalのサーバーサイドとしてRESTAPIを構築する
@@ -12,81 +14,40 @@ A server side of eternal
 - eclipseにimport
 
 ## ディレクトリ構成
-- **TODO:exceptionHandler的なのをどこに置くのか**
-
 ```
 - java
   - aop // loggerなど
+  - config
   - controller
   - dto
     - request // requestオブジェクト
     - response  // responseオブジェクト
   - domain
-    - service
     - model
+    - service
     - type
+  - exception
   - infrastructure
-    - repository  // dao
     - entity
+    - repository  // dao
+  - json
+    - desilializer
+    - selializer  // enumの独自カスタマイズ
   - util  // sorterなど
 - resources
   - application.properties
+  - message.properties?
 ```
 
 ## コーディングルール
 - DIはコンストラクタインジェクションを使用する
+  - `@RequiredArgsConstructor`を使用する
+- formatter
+  - `~\documents\20.開発\99.tool\eclipse\checkstyle\eclipse-java-eternal-style.xml`
+- checkstyle
+  - google_checkstyle.xmlを使用
 - javadocをちゃんと書く
 
-## 実装例
-- controller
-
-```java
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/hiima/api/internal/v1")
-public class RefTalkThemeController {
-
-	private final TalkThemeService talkThemeService;
-
-	/**
-	 * {APIのタイトル}
-	 * @param Request
-	 * @return Response
-	 */
-	@RequestMapping(value="/talkDetail", method=RequestMethod.GET)
-	public TalkThemeDetailResponse getTalkThemeDetail(@RequestParam TalkThemeDetailRequest request) {
-		return talkThemeService.getTalkThemeDetail(request);
-	}
-  ...
- }
-```
-- service
-  - interfaceを作成する
-  - コードは省略
-  
-- repository
-
-```java
-/** TODO */
-```
-- entity
-
-```java
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-public class TalkThemeEntity {
-
-  private BigDecimal id;
-  ...
-}
-```
-- formatter
-  - **TODO:何を使うか選定する**
-- checkstyle
-  - **TODO:何を使うか選定する**
-  
 ## 使用技術
 - [Java8](https://docs.oracle.com/javase/8/docs/api/)
 - [Springboot](http://spring.io/projects/spring-boot)
@@ -100,4 +61,5 @@ public class TalkThemeEntity {
   - 認証系に使用する
 
 ## 参考
-- **TODO:参考になるページのリンクとかを**
+- [Jacksonのカスタマイズ](http://www.ne.jp/asahi/hishidama/home/tech/java/spring/boot/rest/jackson.html)
+- [Qiita - SpringBootでGETのリクエストパラメータのバリデーションをしてバリデーションメッセージを返却するまで](https://qiita.com/shotana/items/e18df97e821d207e642d)

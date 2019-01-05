@@ -1,7 +1,6 @@
 package com.eternal.web.dto.request;
 
-import java.math.BigDecimal;
-
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class TalkThemeDetailRequest {
+public class SampleModel implements Serializable{
 
-	private BigDecimal id;
+    private Boolean bool;
+
+    private String val;
+
 }
