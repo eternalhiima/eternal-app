@@ -6,16 +6,26 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import com.eternal.web.domain.type.SortType;
 import com.eternal.web.json.deselializer.SortTypeDesilializer;
 import com.eternal.web.json.selializer.SortTypeSelializer;
+import com.eternal.web.message.MessageSourceImpl;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Configuration
 public class WebApiConfig {
 
+    /**
+     * メッセージソース
+     *
+     * @return MessageSource
+     */
+    @Bean
+    public MessageSourceImpl messageSource() {
+        return new MessageSourceImpl();
+    }
 
     /**
-     * JacksonのObjectMapper
+     * JacksonのObjectMapperをカスタマイズ
      *
-     * @return ObjectMapper
+     * @return Jackson2ObjectMapperBuilder
      */
     @Bean
     public Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder() {
