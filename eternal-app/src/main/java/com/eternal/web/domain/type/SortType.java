@@ -1,9 +1,7 @@
 package com.eternal.web.domain.type;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.commons.collections4.CollectionUtils;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -25,14 +23,12 @@ public enum SortType {
     private String key;
 
     /**
-     *
      * @param key キー
-     * @return SortType ソートタイプ
+     * @return Optional<SortType> ソートタイプ
      */
-    public static SortType get(String key) {
-        List<SortType> filteredList = Arrays.stream(values())
+    public static Optional<SortType> get(String key) {
+        return Arrays.stream(values())
                 .filter(x -> key.equals(x.getKey()))
-                .collect(Collectors.toList());
-        return CollectionUtils.isNotEmpty(filteredList) ? filteredList.get(0) : null;
+                .findFirst();
     }
 }
