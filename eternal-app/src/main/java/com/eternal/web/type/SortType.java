@@ -1,4 +1,4 @@
-package com.eternal.web.domain.type;
+package com.eternal.web.type;
 
 import java.util.Arrays;
 import java.util.Optional;

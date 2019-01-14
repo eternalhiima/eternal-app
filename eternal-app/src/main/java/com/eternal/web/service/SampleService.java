@@ -1,4 +1,4 @@
-package com.eternal.web.domain.service;
+package com.eternal.web.service;
 
 import com.eternal.web.dto.request.SampleBodyRequest;
 import com.eternal.web.dto.request.SampleQueryRequest;

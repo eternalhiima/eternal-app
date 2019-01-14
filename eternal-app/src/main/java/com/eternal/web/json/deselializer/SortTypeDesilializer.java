@@ -1,8 +1,8 @@
 package com.eternal.web.json.deselializer;
 
 import java.io.IOException;
-import com.eternal.web.domain.type.SortType;
 import com.eternal.web.message.MessageCode;
+import com.eternal.web.type.SortType;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

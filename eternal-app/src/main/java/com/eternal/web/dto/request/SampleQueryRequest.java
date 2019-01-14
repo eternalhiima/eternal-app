@@ -1,8 +1,8 @@
 package com.eternal.web.dto.request;
 
 import java.math.BigDecimal;
-import com.eternal.web.domain.type.SortType;
 import com.eternal.web.message.MessageCode;
+import com.eternal.web.type.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

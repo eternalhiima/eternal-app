@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!-- TODO: 環境別のlogbackの作成 -->
+
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+  <!-- define valiable -->
+  <!-- TODO: 環境に合わせてログのディレクトリを修正 -->
+  <property name="LoggingDir" value="logs/" />
+  <property name="ROOT_LEVEL" value="DEBUG" />
+  <timestamp key="byDate" datePattern="yyyyMMdd"/>
+
+  <!-- request log -->
+  <appender name="REQUEST_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LoggingDir}api_request.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LoggingDir}api_request-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.eternal.web.logger.RequestLogger">
+    <appender-ref ref="REQUEST_LOG" />
+  </logger>
+
+  <!-- response log -->
+  <appender name="RESPONSE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LoggingDir}api_response.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LoggingDir}api_response-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.eternal.web.logger.ResponseLogger">
+    <appender-ref ref="RESPONSE_LOG" />
+  </logger>
+
+  <!-- application log -->
+  <appender name="APPLIATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LoggingDir}application.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LoggingDir}application-%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+      <maxHistory>3</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <charset>UTF-8</charset>
+      <pattern>%d{yyyy/MM/dd HH:mm:ss} %-5level [%thread] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="com.eternal.web.logger.ApplicationLogger">
+    <appender-ref ref="APPLIATION_LOG" />
+  </logger>
+
+  <!-- console log -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level %marker %logger - %msg%n</Pattern>
+    </layout>
+  </appender>
+
+  <!-- debug log -->
+  <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <append>true</append>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>TRACE</level>
+    </filter>
+    <file>${LoggingDir}debug.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LoggingDir}history/debug.%d{yyyy-MM-dd}.zip</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>time:%d{yyyy-MMM-dd HH:mm:ss.SSS} level:%level %marker thread:%thread logger:%logger message:%msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!-- info log -->
+  <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <append>true</append>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${LoggingDir}info.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LoggingDir}history/info.%d{yyyy-MM-dd}.zip</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>time:%d{yyyy-MMM-dd HH:mm:ss.SSS}  level:%level  %marker thread:%thread  logger:%logger  message:%msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!-- error log -->
+  <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <append>true</append>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>WARN</level>
+    </filter>
+    <file>${LoggingDir}error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LoggingDir}history/error_%d{yyyy-MM-dd}.zip</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>time:%d{yyyy-MMM-dd HH:mm:ss.SSS}  level:%level  %marker thread:%thread  logger:%logger  message:%msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <root level="${ROOT_LEVEL}">
+    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="ERROR"/>
+  </root>
+</configuration>

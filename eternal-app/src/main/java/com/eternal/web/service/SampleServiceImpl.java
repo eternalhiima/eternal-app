@@ -1,4 +1,4 @@
-package com.eternal.web.domain.service;
+package com.eternal.web.service;
 
 import org.springframework.stereotype.Service;
 import com.eternal.web.dto.request.SampleBodyRequest;
