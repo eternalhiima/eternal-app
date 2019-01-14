@@ -51,7 +51,7 @@ public class ApiLogAspect {
      */
     @Before("@annotation(appLog)")
     public void logApplication(JoinPoint joinpoint, AppLog appLog) throws Throwable {
-        ApplicationLogger.log(joinpoint.getSignature(), Arrays.stream(joinpoint.getArgs()));
+        ApplicationLogger.log(joinpoint.getSignature());
     }
 
 }

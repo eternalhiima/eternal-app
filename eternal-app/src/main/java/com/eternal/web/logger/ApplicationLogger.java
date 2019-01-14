@@ -1,7 +1,5 @@
 package com.eternal.web.logger;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.aspectj.lang.Signature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +17,11 @@ public class ApplicationLogger {
 
     /**
      * アプリケーションログ
-     * @param stream
-     * @param apiComponentType APIコンポーネントタイプ
-     * @param responseDto アプリケーションDto
+     *
+     * @param signature シグネチャ
      */
-    public static void log(Signature signature, Stream<Object> args) {
-        String appLog = "class: " + signature.getDeclaringType().toString() + "params: " + args.map(arg -> arg.toString()).collect(Collectors.joining(", ", "[param: ", "]"));
+    public static void log(Signature signature) {
+        String appLog = "class: " + signature.getDeclaringType().toString();
         log.info(appLog);
     }
 
