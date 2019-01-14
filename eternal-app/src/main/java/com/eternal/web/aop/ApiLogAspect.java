@@ -6,9 +6,16 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
+import com.eternal.web.logger.ApplicationLogger;
 import com.eternal.web.logger.RequestLogger;
 import com.eternal.web.logger.ResponseLogger;
 
+/**
+ * ApiLogAspect
+ *
+ * @author taiki0304
+ *
+ */
 @Aspect
 @Component
 public class ApiLogAspect {
@@ -24,10 +31,27 @@ public class ApiLogAspect {
         RequestLogger.log(apiLog.apiComponentType(), Arrays.stream(joinpoint.getArgs()));
     }
 
-    @AfterReturning(value ="@annotation(apiLog)", returning="responseDto")
+    /**
+     * レスポンスログアスペクト
+     *
+     * @param joinpoint
+     * @param apiLog
+     * @param responseDto
+     */
+    @AfterReturning(value = "@annotation(apiLog)", returning = "responseDto")
     public void logResponse(JoinPoint joinpoint, ApiLog apiLog, Object responseDto) {
         ResponseLogger.log(apiLog.apiComponentType(), responseDto);
     }
-    // アプリケーションログ
+
+    /**
+     * アプリケーションログアスペクト
+     * @param joinpoint
+     * @param appLog
+     * @throws Throwable
+     */
+    @Before("@annotation(appLog)")
+    public void logApplication(JoinPoint joinpoint, AppLog appLog) throws Throwable {
+        ApplicationLogger.log(joinpoint.getSignature(), Arrays.stream(joinpoint.getArgs()));
+    }
 
 }

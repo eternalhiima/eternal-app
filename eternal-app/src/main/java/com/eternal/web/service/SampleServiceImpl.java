@@ -1,6 +1,7 @@
 package com.eternal.web.service;
 
 import org.springframework.stereotype.Service;
+import com.eternal.web.aop.AppLog;
 import com.eternal.web.dto.request.SampleBodyRequest;
 import com.eternal.web.dto.request.SampleQueryRequest;
 import com.eternal.web.dto.response.SampleResponse;
@@ -9,6 +10,7 @@ import com.eternal.web.dto.response.SampleResponse;
 public class SampleServiceImpl implements SampleService {
 
     @Override
+    @AppLog
     public SampleResponse getQuerySample(SampleQueryRequest request) {
         return SampleResponse.builder()
                 .id(request.getId())
@@ -17,6 +19,7 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Override
+    @AppLog
     public SampleResponse getBodySample(SampleBodyRequest request) {
         return SampleResponse.builder()
                 .id(request.getId())
