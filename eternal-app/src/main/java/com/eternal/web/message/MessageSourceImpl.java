@@ -1,10 +1,10 @@
 package com.eternal.web.message;
 
 import java.util.Locale;
-import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 /**
  * MessageSourceImpl
@@ -18,7 +18,7 @@ public class MessageSourceImpl implements MessageSource {
     private final MessageSource messageSource;
 
     public MessageSourceImpl() {
-        messageSource = new MessageSourceAutoConfiguration().messageSource();
+        messageSource = new ReloadableResourceBundleMessageSource();
     }
 
     /**

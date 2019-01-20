@@ -1,25 +1,20 @@
-package com.eternal.web.model;
+package com.eternal.web.dto;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Category
- *
- * @author taiki0304
- */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Category {
+@Builder
+public class CategoryDto {
 
     /** カテゴリID */
-    private BigDecimal id;
+    private BigDecimal categoryId;
 
-    /** カテゴリ名 */
+    /** カテゴ名 */
     private String categoryName;
-
-
 }
