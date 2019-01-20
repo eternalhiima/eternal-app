@@ -1,7 +1,7 @@
 package com.eternal.web.dto.response;
 
 import java.math.BigDecimal;
-import com.eternal.web.domain.type.SortType;
+import com.eternal.web.type.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

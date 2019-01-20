@@ -22,14 +22,12 @@
   - dto
     - request // requestオブジェクト
     - response  // responseオブジェクト
-  - domain
-    - model
-    - service
-    - type
+  - model
+  - service
+  - type
   - exception
-  - infrastructure
-    - entity
-    - repository  // dao
+  - entity
+  - repository  // dao
   - json
     - desilializer
     - selializer  // enumの独自カスタマイズ

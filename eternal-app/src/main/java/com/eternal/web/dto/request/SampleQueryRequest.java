@@ -1,9 +1,8 @@
 package com.eternal.web.dto.request;
 
 import java.math.BigDecimal;
-import java.util.Objects;
-import com.eternal.web.domain.type.SortType;
 import com.eternal.web.message.MessageCode;
+import com.eternal.web.type.SortType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,10 +17,8 @@ public class SampleQueryRequest {
     private final SortType sortType;
 
     public static SampleQueryRequest of(BigDecimal id, String key, String sortType) {
-        SortType type = SortType.get(sortType);
-        if (Objects.isNull(type)) {
-            throw new IllegalArgumentException(MessageCode.API0001E);
-        }
+        SortType type = SortType.get(sortType)
+                .orElseThrow(() -> new IllegalArgumentException(MessageCode.API0001E));
         return new SampleQueryRequest(id, key, type);
     }
 }

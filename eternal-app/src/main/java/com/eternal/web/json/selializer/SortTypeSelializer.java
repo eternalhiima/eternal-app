@@ -1,7 +1,7 @@
 package com.eternal.web.json.selializer;
 
 import java.io.IOException;
-import com.eternal.web.domain.type.SortType;
+import com.eternal.web.type.SortType;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;

@@ -3,10 +3,10 @@ package com.eternal.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import com.eternal.web.domain.type.SortType;
 import com.eternal.web.json.deselializer.SortTypeDesilializer;
 import com.eternal.web.json.selializer.SortTypeSelializer;
 import com.eternal.web.message.MessageSourceImpl;
+import com.eternal.web.type.SortType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Configuration
@@ -40,3 +40,4 @@ public class WebApiConfig {
         return builder;
     }
 }
+

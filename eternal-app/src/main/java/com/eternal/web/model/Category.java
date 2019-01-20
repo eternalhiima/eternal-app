@@ -1,4 +1,4 @@
-package com.eternal.web.domain.model;
+package com.eternal.web.model;
 
 import java.math.BigDecimal;
 
