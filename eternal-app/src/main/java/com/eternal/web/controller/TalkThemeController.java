@@ -1,13 +1,17 @@
 package com.eternal.web.controller;
 
 import java.math.BigDecimal;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.eternal.web.aop.ApiLog;
 import com.eternal.web.config.WebApiEndPoint;
+import com.eternal.web.dto.request.PostTalkRequest;
 import com.eternal.web.dto.request.TalkThemeListRequest;
+import com.eternal.web.dto.response.PostTalkResponse;
 import com.eternal.web.dto.response.TalkThemeListResponse;
 import com.eternal.web.service.TalkThemeService;
 import com.eternal.web.type.ApiComponentType;
@@ -40,5 +44,18 @@ public class TalkThemeController {
             @RequestParam String sortKey,
             @RequestParam String sort) {
         return talkThemeService.getTalkThemeResponse(TalkThemeListRequest.of(count, maxCount, categoryId, sortKey, sort));
+    }
+
+    /**
+     * Upd001_トークテーマ投稿
+     *
+     * @param PostTalkRequest リクエスト
+     * @return PostTalkResponse
+     */
+    @ApiLog(apiComponentType = ApiComponentType.UPD001)
+    @RequestMapping(value = WebApiEndPoint.POSTTALK_END_POINT, method = RequestMethod.GET,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public PostTalkResponse postTalkTheme(@RequestBody PostTalkRequest request) {
+        return talkThemeService.postTalk(request);
     }
 }

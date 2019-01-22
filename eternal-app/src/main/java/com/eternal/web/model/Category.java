@@ -21,5 +21,4 @@ public class Category {
     /** カテゴリ名 */
     private String categoryName;
 
-
 }

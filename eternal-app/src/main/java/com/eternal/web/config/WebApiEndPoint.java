@@ -25,8 +25,4 @@ public abstract class WebApiEndPoint {
 
     /** Upd003_コメント投稿 */
     public static final String POSTCOMMENT_END_POINT = "/postComment";
-
-    // TODO: サンプル実装なので削除
-    public static final String QUERY_END_POINT = "/queryTest";
-    public static final String BODY_END_POINT = "/bodyTest";
 }

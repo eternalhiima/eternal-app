@@ -26,11 +26,7 @@ public enum ApiComponentType {
     /** Upd002_トークテーマ評価 */
     UPD002("upd002"),
     /** Upd003_コメント投稿 */
-    UPD003("upd003"),
-
-    // TODO:delete
-    SAMPLE1("sample1"),
-    SAMPLE2("sample2");
+    UPD003("upd003");
 
     /** API名 */
     private String name;

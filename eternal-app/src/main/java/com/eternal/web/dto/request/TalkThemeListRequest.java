@@ -7,6 +7,11 @@ import com.eternal.web.type.SortType;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * TalkThemeListRequest
+ *
+ * @author taiki0304
+ */
 @Builder
 @Getter
 public class TalkThemeListRequest {
