@@ -19,6 +19,6 @@ public class SortTypeDesilializer extends JsonDeserializer<SortType> {
     @Override
     public SortType deserialize(JsonParser jsonPerser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
         return SortType.get(jsonPerser.getValueAsString())
-                .orElseThrow(() -> new JsonParseException(jsonPerser, MessageCode.API0001E));
+                .orElseThrow(() -> new JsonParseException(jsonPerser, MessageCode.typeMismatchOthers));
     }
 }

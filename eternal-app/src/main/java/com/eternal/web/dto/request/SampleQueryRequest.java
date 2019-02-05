@@ -18,7 +18,7 @@ public class SampleQueryRequest {
 
     public static SampleQueryRequest of(BigDecimal id, String key, String sortType) {
         SortType type = SortType.get(sortType)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.API0001E));
+                .orElseThrow(() -> new IllegalArgumentException(MessageCode.typeMismatchOthers));
         return new SampleQueryRequest(id, key, type);
     }
 }
