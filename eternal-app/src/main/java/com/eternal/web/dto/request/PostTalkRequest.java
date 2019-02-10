@@ -5,7 +5,7 @@ package com.eternal.web.dto.request;
 
 import java.util.List;
 import com.eternal.web.dto.CategoryDto;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -13,7 +13,7 @@ import lombok.Getter;
  *
  * @author taiki0304
  */
-@Builder
+@AllArgsConstructor
 @Getter
 public class PostTalkRequest {
 
@@ -23,8 +23,8 @@ public class PostTalkRequest {
     /** カテゴリリスト */
     private List<CategoryDto> categoryList;
 
-    /** トークテーマ概要 */
-    private String description;
+    /** トークテーマ内容 */
+    private String content;
 
     /** 投稿者名 */
     private String userName;

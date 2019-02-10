@@ -1,6 +1,7 @@
 package com.eternal.web.logger;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.StringJoiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,10 @@ public class ResponseLogger {
      */
     public static void log(ApiComponentType apiComponentType, Object responseDto) {
         String apiName = "apiName: " + apiComponentType.getName();
+        if (Objects.isNull(responseDto)) {
+            log.info(apiName + ", Response is null.");
+            return;
+        }
         StringJoiner responseBody = new StringJoiner(", ", ", responseBody: ", "");
         Arrays.stream(responseDto.getClass().getDeclaredFields()).forEach(field -> {
             try {

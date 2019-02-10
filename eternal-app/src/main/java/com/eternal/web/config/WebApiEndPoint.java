@@ -6,7 +6,7 @@ public abstract class WebApiEndPoint {
     public static final String ROOT_END_POINT = "/hiima/api/internal/v1";
 
     /** Ref001_トークテーマ一覧取得 */
-    public static final String TALKLIST_END_POINT = "/talklist";
+    public static final String TALKLIST_END_POINT = "/talkList";
 
     /** Ref002_トークテーマカテゴリ一覧取得 */
     public static final String CATEGORYLIST_END_POINT = "/categoryList";

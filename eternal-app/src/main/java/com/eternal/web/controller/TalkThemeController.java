@@ -43,6 +43,7 @@ public class TalkThemeController {
             @RequestParam BigDecimal categoryId,
             @RequestParam String sortKey,
             @RequestParam String sort) {
+        // TODO: 引数の必須かの制御とバリデーションの実装
         return talkThemeService.getTalkThemeResponse(TalkThemeListRequest.of(count, maxCount, categoryId, sortKey, sort));
     }
 
