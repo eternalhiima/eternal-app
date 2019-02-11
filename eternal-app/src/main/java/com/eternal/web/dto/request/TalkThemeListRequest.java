@@ -44,9 +44,9 @@ public class TalkThemeListRequest {
     public static TalkThemeListRequest of(BigDecimal count, BigDecimal maxCount, BigDecimal categoryId, String sortKey,
             String sort) {
         SortKeyType sortKeyType = SortKeyType.get(sortKey)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.typeMismatchFields));
+                .orElseThrow(() -> new IllegalArgumentException(MessageCode.TYPW_MISMATCH_FIELDS));
         SortType sortType = SortType.get(sort)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.typeMismatchFields));
+                .orElseThrow(() -> new IllegalArgumentException(MessageCode.TYPW_MISMATCH_FIELDS));
         return TalkThemeListRequest.builder()
                 .count(count)
                 .maxCount(maxCount)

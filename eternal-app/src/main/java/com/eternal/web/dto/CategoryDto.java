@@ -1,11 +1,11 @@
 package com.eternal.web.dto;
 
 import java.math.BigDecimal;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
-@AllArgsConstructor
-@Data
+@Builder
+@Getter
 public class CategoryDto {
 
     /** カテゴリID */

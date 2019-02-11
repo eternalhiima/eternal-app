@@ -15,21 +15,24 @@ import lombok.Getter;
 public enum SortKeyType {
 
     /** 総合ランキング */
-    RANK("01"),
+    RANK("01", "TODO"),
     /** GOOD数 */
-    GOOD("02"),
+    GOOD("02", "GOOD_COUNT"),
     /** BAD数 */
-    BAD("03"),
+    BAD("03", "BAD_COUNT"),
     /** トーク数 */
-    TALK("04"),
+    TALK("04", "TALK_COUNT"),
     /** タイトル名称 */
-    TITLE("05");
+    TITLE("05", "TITLE");
 
     /** ソートタイプキー */
     private String key;
 
+    /** ソートカラム */
+    private String column;
+
     /**
-     * @param key　ソートタイプキー
+     * @param key ソートタイプキー
      * @return Optional<SortKeyType>
      */
     public static Optional<SortKeyType> get(String key) {

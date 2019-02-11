@@ -29,8 +29,7 @@ public class UserEntity extends AbstractPersistable<BigDecimal> {
     /** 更新日時 */
     private LocalDateTime updateDatetime;
 
-    private UserEntity() {
-    }
+    private UserEntity() {}
 
     public static UserEntity of(String userName) {
         UserEntity entity = new UserEntity();

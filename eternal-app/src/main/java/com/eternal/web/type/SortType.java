@@ -31,4 +31,8 @@ public enum SortType {
                 .filter(x -> key.equals(x.getKey()))
                 .findFirst();
     }
+
+    public boolean isAsc() {
+        return SortType.ASC.getKey().equals(key);
+    }
 }

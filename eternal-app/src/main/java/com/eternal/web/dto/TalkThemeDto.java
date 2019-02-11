@@ -3,15 +3,11 @@ package com.eternal.web.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @Builder
+@Getter
 public class TalkThemeDto {
 
     /** トークテーマID */
@@ -23,11 +19,11 @@ public class TalkThemeDto {
     /** トークテーマタイトル */
     private String title;
 
-    /** トークテーマ概要 */
-    private String description;
+    /** トークテーマ内容 */
+    private String content;
 
-    /** サムネイルURL */
-    private String thumbnailUrl;
+    /** サムネイルパス */
+    private String thumbnailPath;
 
     /** GOOD数 */
     private BigDecimal goodCount;

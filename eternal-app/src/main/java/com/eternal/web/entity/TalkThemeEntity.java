@@ -38,7 +38,7 @@ public class TalkThemeEntity extends AbstractPersistable<BigDecimal> {
 
     /** ユーザー */
     @ManyToOne(cascade = CascadeType.ALL, targetEntity = UserEntity.class)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "id")
+    @JoinColumn(name = "USER_ID")
     private UserEntity user;
 
     /** GOOD数 */
@@ -79,7 +79,7 @@ public class TalkThemeEntity extends AbstractPersistable<BigDecimal> {
         entity.content = request.getContent();
         entity.relatedUrl = request.getRelatedUrl();
         entity.categoryList = request.getCategoryList().stream()
-                .map(dto -> CategoryEntity.of(dto))
+                .map(dto -> CategoryEntity.of(dto, user))
                 .collect(Collectors.toList());
         entity.user = user;
         entity.createDatetime = LocalDateTime.now();

@@ -12,7 +12,7 @@ import com.eternal.web.dto.response.TalkThemeListResponse;
  */
 public interface TalkThemeService {
 
-    public TalkThemeListResponse getTalkThemeResponse(TalkThemeListRequest request);
+    public TalkThemeListResponse getTalkThemeListResponse(TalkThemeListRequest request);
 
     public PostTalkResponse postTalk(PostTalkRequest request);
 }

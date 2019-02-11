@@ -38,13 +38,12 @@ public class TalkThemeController {
     @ApiLog(apiComponentType = ApiComponentType.REF001)
     @RequestMapping(value = WebApiEndPoint.TALKLIST_END_POINT, method = RequestMethod.GET)
     public TalkThemeListResponse getTalkThemeList(
-            @RequestParam BigDecimal count,
+            @RequestParam(required = false, defaultValue = "20") BigDecimal count,
             @RequestParam BigDecimal maxCount,
-            @RequestParam BigDecimal categoryId,
+            @RequestParam(required = false) BigDecimal categoryId,
             @RequestParam String sortKey,
-            @RequestParam String sort) {
-        // TODO: 引数の必須かの制御とバリデーションの実装
-        return talkThemeService.getTalkThemeResponse(TalkThemeListRequest.of(count, maxCount, categoryId, sortKey, sort));
+            @RequestParam(required = false, defaultValue = "asc") String sort) {
+        return talkThemeService.getTalkThemeListResponse(TalkThemeListRequest.of(count, maxCount, categoryId, sortKey, sort));
     }
 
     /**
