@@ -38,13 +38,14 @@ public class CategoryEntity extends AbstractPersistable<BigDecimal> {
     /** 更新日時 */
     private LocalDateTime updateDatetime;
 
-    private CategoryEntity() {
-    }
+    private CategoryEntity() {}
 
     public static CategoryEntity of(CategoryDto dto) {
         CategoryEntity entity = new CategoryEntity();
         entity.setId(dto.getCategoryId());
         entity.categoryName = dto.getCategoryName();
+        entity.inputDatetime = LocalDateTime.now();
+        entity.updateDatetime = LocalDateTime.now();
         return entity;
     }
 

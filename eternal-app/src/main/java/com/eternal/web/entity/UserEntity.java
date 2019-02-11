@@ -37,6 +37,8 @@ public class UserEntity extends AbstractPersistable<BigDecimal> {
         entity.userName = userName;
         // TODO: アイコンの設定
         entity.createDatetime = LocalDateTime.now();
+        entity.inputDatetime = LocalDateTime.now();
+        entity.updateDatetime = LocalDateTime.now();
         return entity;
     }
 
