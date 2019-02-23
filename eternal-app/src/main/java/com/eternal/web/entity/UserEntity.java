@@ -1,18 +1,19 @@
 package com.eternal.web.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USER")
 @Getter
 @AllArgsConstructor
-public class UserEntity extends AbstractPersistable<BigDecimal> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class UserEntity extends AbstractEntity {
 
     /** ユーザー名 */
     private String userName;
@@ -23,14 +24,6 @@ public class UserEntity extends AbstractPersistable<BigDecimal> {
     /** 作成日時 */
     private LocalDateTime createDatetime;
 
-    /** 入力日時 */
-    private LocalDateTime inputDatetime;
-
-    /** 更新日時 */
-    private LocalDateTime updateDatetime;
-
-    private UserEntity() {}
-
     public static UserEntity of(String userName) {
         UserEntity entity = new UserEntity();
         entity.userName = userName;
@@ -40,5 +33,4 @@ public class UserEntity extends AbstractPersistable<BigDecimal> {
         entity.updateDatetime = LocalDateTime.now();
         return entity;
     }
-
 }

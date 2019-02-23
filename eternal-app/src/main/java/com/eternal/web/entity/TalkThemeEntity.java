@@ -11,18 +11,20 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import com.eternal.web.dto.request.PostTalkRequest;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "TALK_THEME")
 @Getter
 @Builder
 @AllArgsConstructor
-public class TalkThemeEntity extends AbstractPersistable<BigDecimal> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class TalkThemeEntity extends AbstractEntity {
 
     /** タイトル */
     private String title;
@@ -48,7 +50,7 @@ public class TalkThemeEntity extends AbstractPersistable<BigDecimal> {
     private BigDecimal badCount;
 
     /** トーク数 */
-    private BigDecimal talkedCount;
+    private BigDecimal talkCount;
 
     /** カテゴリリスト */
     @ManyToMany
@@ -58,14 +60,6 @@ public class TalkThemeEntity extends AbstractPersistable<BigDecimal> {
 
     /** 作成日時 */
     private LocalDateTime createDatetime;
-
-    /** 入力日時 */
-    private LocalDateTime inputDatetime;
-
-    /** 更新日時 */
-    private LocalDateTime updateDatetime;
-
-    private TalkThemeEntity() {}
 
     /**
      * トークテーマ投稿のリクエストよりEntityを生成する

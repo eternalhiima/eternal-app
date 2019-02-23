@@ -1,10 +1,8 @@
 package com.eternal.web.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "TALK_EVALUATION")
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class TalkEvaluationEntity extends AbstractPersistable<BigDecimal> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class TalkEvaluationEntity extends AbstractEntity {
 
     /** ユーザーID */
     private String userId;
@@ -25,11 +23,5 @@ public class TalkEvaluationEntity extends AbstractPersistable<BigDecimal> {
     /** 評価 */
 //    TODO: ENUMにする
     private int evaluation;
-
-    /** 入力日時 */
-    private LocalDateTime inputDatetime;
-
-    /** 更新日時 */
-    private LocalDateTime updateDatetime;
 
 }

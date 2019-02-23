@@ -46,7 +46,7 @@ public class TalkThemeConverter {
                                 .thumbnailPath(entity.getThumbnailPath())
                                 .goodCount(entity.getGoodCount())
                                 .badCount(entity.getBadCount())
-                                .talkedCount(entity.getTalkedCount())
+                                .talkedCount(entity.getTalkCount())
                                 .categoryList(entity.getCategoryList().stream()
                                         .map(category -> CategoryDto.builder()
                                                 .categoryId(category.getId())

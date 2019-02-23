@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "COMMENT")
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class CommentEntity extends AbstractPersistable<BigDecimal> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class CommentEntity extends AbstractEntity {
 
     /** コメント */
     private String comment;
@@ -27,11 +27,5 @@ public class CommentEntity extends AbstractPersistable<BigDecimal> {
 
     /** 作成日時 */
     private LocalDateTime createDatetime;
-
-    /** 入力日時 */
-    private LocalDateTime inputDatetime;
-
-    /** 更新日時 */
-    private LocalDateTime updateDatetime;
 
 }

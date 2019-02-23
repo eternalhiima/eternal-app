@@ -1,6 +1,5 @@
 package com.eternal.web.dto;
 
-import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,7 +8,7 @@ import lombok.Getter;
 public class CategoryDto {
 
     /** カテゴリID */
-    private BigDecimal categoryId;
+    private Long categoryId;
 
     /** カテゴ名 */
     private String categoryName;

@@ -3,7 +3,6 @@
  */
 package com.eternal.web.dto.response;
 
-import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -22,5 +21,5 @@ public class PostTalkResponse {
     private String message;
 
     /** トークテーマID */
-    private BigDecimal talkThemeId;
+    private Long talkThemeId;
 }

@@ -11,7 +11,7 @@ import lombok.Getter;
 public class TalkThemeDto {
 
     /** トークテーマID */
-    private BigDecimal talkThemeId;
+    private Long talkThemeId;
 
     /** ランキング順 */
     private BigDecimal order;
