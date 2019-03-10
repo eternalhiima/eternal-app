@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import lombok.Getter;
 
 /**
@@ -29,4 +31,17 @@ public abstract class AbstractEntity {
 
     /** 更新日時 */
     protected LocalDateTime updateDatetime;
+
+    /** save前に実行される */
+    @PrePersist
+    public void prePersist() {
+        this.inputDatetime = LocalDateTime.now();
+        this.updateDatetime = LocalDateTime.now();
+    }
+
+    /** update前に実行される */
+    @PreUpdate
+    public void preUpdate() {
+        this.updateDatetime = LocalDateTime.now();
+    }
 }

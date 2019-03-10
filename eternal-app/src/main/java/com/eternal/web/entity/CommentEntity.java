@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "COMMENT")
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentEntity extends AbstractEntity {
 
     /** コメント */

@@ -2,18 +2,14 @@ package com.eternal.web.dto.response;
 
 import java.util.List;
 import com.eternal.web.dto.TalkThemeDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * TalkThemeListResponse
  *
  * @author taiki0304
  */
-@AllArgsConstructor
-@Builder
-@Getter
+@Data
 public class TalkThemeListResponse {
 
     /** トークテーマリスト */

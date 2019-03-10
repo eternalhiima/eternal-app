@@ -111,7 +111,7 @@
   <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <append>true</append>
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-      <level>WARN</level>
+      <level>ERROR</level>
     </filter>
     <file>${LoggingDir}error.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

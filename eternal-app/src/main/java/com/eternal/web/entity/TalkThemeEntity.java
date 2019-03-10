@@ -4,12 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.eternal.web.dto.request.PostTalkRequest;
 import lombok.AccessLevel;
@@ -23,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TalkThemeEntity extends AbstractEntity {
 
     /** タイトル */
@@ -39,9 +37,7 @@ public class TalkThemeEntity extends AbstractEntity {
     private String relatedUrl;
 
     /** ユーザー */
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = UserEntity.class)
-    @JoinColumn(name = "USER_ID")
-    private UserEntity user;
+    private Long userId;
 
     /** GOOD数 */
     private BigDecimal goodCount;
@@ -64,21 +60,23 @@ public class TalkThemeEntity extends AbstractEntity {
     /**
      * トークテーマ投稿のリクエストよりEntityを生成する
      *
-     * @param request トークテーマ投稿リクエスト
-     * @return TalkThemeEntity
+     * @param request {@link PostTalkRequest}
+     * @param userId
+     * @return {@link TalkThemeEntity}
      */
-    public static TalkThemeEntity of(PostTalkRequest request, UserEntity user) {
+    public static TalkThemeEntity of(PostTalkRequest request, Long userId) {
         TalkThemeEntity entity = new TalkThemeEntity();
         entity.title = request.getTitle();
         entity.content = request.getContent();
         entity.relatedUrl = request.getRelatedUrl();
         entity.categoryList = request.getCategoryList().stream()
-                .map(dto -> CategoryEntity.of(dto, user))
+                .map(dto -> CategoryEntity.of(dto, userId))
                 .collect(Collectors.toList());
-        entity.user = user;
+        entity.userId = userId;
+        entity.goodCount = BigDecimal.ZERO;
+        entity.badCount = BigDecimal.ZERO;
+        entity.talkCount = BigDecimal.ZERO;
         entity.createDatetime = LocalDateTime.now();
-        entity.inputDatetime = LocalDateTime.now();
-        entity.updateDatetime = LocalDateTime.now();
         return entity;
     }
 

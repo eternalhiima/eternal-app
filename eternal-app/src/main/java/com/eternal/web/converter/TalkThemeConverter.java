@@ -6,6 +6,7 @@ package com.eternal.web.converter;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import com.eternal.web.dto.CategoryDto;
@@ -18,8 +19,8 @@ import com.eternal.web.message.MessageSourceImpl;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * {@link TalkThemeConverter}
  * @author taiki0304
- *
  */
 @Component
 @RequiredArgsConstructor
@@ -31,40 +32,36 @@ public class TalkThemeConverter {
     /**
      * Ref001_トークテーマ一覧取得用のレスポンスコンバーター
      *
-     * @param entityList
-     * @return
+     * @param entityList {@link TalkThemeEntity}
+     * @return {@link TalkThemeListResponse}
      */
     public TalkThemeListResponse convert(List<TalkThemeEntity> entityList) {
-        BigDecimal order = BigDecimal.ZERO;
-        return TalkThemeListResponse.builder()
-                .talkThemeList(entityList.stream()
-                        .map(entity -> TalkThemeDto.builder()
-                                .talkThemeId(entity.getId())
-                                .order(order.add(BigDecimal.ONE))
-                                .title(entity.getTitle())
-                                .content(entity.getContent())
-                                .thumbnailPath(entity.getThumbnailPath())
-                                .goodCount(entity.getGoodCount())
-                                .badCount(entity.getBadCount())
-                                .talkedCount(entity.getTalkCount())
-                                .categoryList(entity.getCategoryList().stream()
-                                        .map(category -> CategoryDto.builder()
-                                                .categoryId(category.getId())
-                                                .categoryName(category.getCategoryName())
-                                                .build())
-                                        .collect(Collectors.toList()))
-                                .postUser(entity.getUser().getUserName())
-                                .postDateTime(entity.getCreateDatetime())
-                                .build())
+        AtomicInteger order = new AtomicInteger();
+        TalkThemeListResponse response = new TalkThemeListResponse();
+        response.setTalkThemeList(entityList.stream().map(e -> TalkThemeDto.builder()
+                .talkThemeId(e.getId())
+                .order(BigDecimal.valueOf(order.getAndIncrement()))
+                .title(e.getTitle())
+                .content(e.getContent())
+                .thumbnailPath(e.getThumbnailPath())
+                .goodCount(e.getGoodCount())
+                .badCount(e.getBadCount())
+                .talkedCount(e.getTalkCount())
+                .categoryList(e.getCategoryList().stream()
+                        .map(c -> CategoryDto.builder()
+                                .categoryId(c.getId())
+                                .categoryName(c.getCategoryName()).build())
                         .collect(Collectors.toList()))
-                .build();
+                .postDateTime(e.getCreateDatetime()).build())
+                .collect(Collectors.toList()));
+        return response;
     }
 
     /**
      * Upd001_トークテーマ投稿用のレスポンスコンバーター
      *
-     * @param entity TalkThemeEntity
-     * @return PostTalkResponse
+     * @param entity {@link TalkThemeEntity}
+     * @return {@link PostTalkResponse}
      */
     public PostTalkResponse convert(TalkThemeEntity entity) {
         if (Objects.nonNull(entity)) {

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "USER")
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity extends AbstractEntity {
 
     /** ユーザー名 */
@@ -29,8 +29,6 @@ public class UserEntity extends AbstractEntity {
         entity.userName = userName;
         // TODO: アイコンの設定
         entity.createDatetime = LocalDateTime.now();
-        entity.inputDatetime = LocalDateTime.now();
-        entity.updateDatetime = LocalDateTime.now();
         return entity;
     }
 }

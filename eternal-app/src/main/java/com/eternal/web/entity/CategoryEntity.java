@@ -2,10 +2,7 @@ package com.eternal.web.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import com.eternal.web.dto.CategoryDto;
 import lombok.AccessLevel;
@@ -19,16 +16,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CategoryEntity extends AbstractEntity {
 
     /** カテゴリ名称 */
     private String categoryName;
 
     /** ユーザー */
-    @ManyToOne(cascade = CascadeType.ALL, targetEntity = UserEntity.class)
-    @JoinColumn(name = "USER_ID")
-    private UserEntity user;
+    private Long userId;
 
     /** 作成日時 */
     private LocalDateTime createDatetime;
@@ -39,14 +34,14 @@ public class CategoryEntity extends AbstractEntity {
     /** 最終使用日時 */
     private LocalDateTime lastUsedDatetime;
 
-    public static CategoryEntity of(CategoryDto dto, UserEntity user) {
+    public static CategoryEntity of(CategoryDto dto, Long userId) {
         CategoryEntity entity = new CategoryEntity();
         entity.id = dto.getCategoryId();
         entity.categoryName = dto.getCategoryName();
-        entity.user = user;
+        entity.userId = userId;
         entity.createDatetime = LocalDateTime.now();
-        entity.inputDatetime = LocalDateTime.now();
-        entity.updateDatetime = LocalDateTime.now();
+        entity.usedCount = BigDecimal.ZERO;
+        entity.lastUsedDatetime = LocalDateTime.now();
         return entity;
     }
 

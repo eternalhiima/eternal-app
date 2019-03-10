@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "TALK_EVALUATION")
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TalkEvaluationEntity extends AbstractEntity {
 
     /** ユーザーID */

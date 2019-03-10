@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "TALK_HISTORY")
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TalkHistoryEntity extends AbstractEntity {
 
     /** ユーザーID */

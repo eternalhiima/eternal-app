@@ -49,11 +49,11 @@ public class TalkThemeController {
     /**
      * Upd001_トークテーマ投稿
      *
-     * @param PostTalkRequest リクエスト
-     * @return PostTalkResponse
+     * @param {@link PostTalkRequest} リクエスト
+     * @return {@link PostTalkResponse}
      */
     @ApiLog(apiComponentType = ApiComponentType.UPD001)
-    @RequestMapping(value = WebApiEndPoint.POSTTALK_END_POINT, method = RequestMethod.GET,
+    @RequestMapping(value = WebApiEndPoint.POSTTALK_END_POINT, method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public PostTalkResponse postTalkTheme(@RequestBody PostTalkRequest request) {
         return talkThemeService.postTalk(request);
