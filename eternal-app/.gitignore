@@ -1,6 +1,12 @@
+### aditional settings ###
+logs/
+
+### gradle ###
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
+bin/
+!.gitkeep
 
 ### STS ###
 .apt_generated
