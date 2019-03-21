@@ -46,8 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
             HttpHeaders headers, HttpStatus status, WebRequest request) {
         return super.handleExceptionInternal(e,
-                createErrorInfoResponse(MessageCode.API9000E,
-                        messageSource.getMessage(MessageCode.API9000E,
+                createErrorInfoResponse(MessageCode.TYPE_MISMATCH_OTHERS,
+                        messageSource.getMessage(MessageCode.TYPE_MISMATCH_OTHERS,
                                 Arrays.asObjectArray(e.getBindingResult().getTarget()))),
                 null, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllException(Exception e, WebRequest request) {
         return super.handleExceptionInternal(e,
-                createErrorInfoResponse(MessageCode.API9999E, messageSource.getMessage(MessageCode.API9999E)), null,
+                createErrorInfoResponse(MessageCode.EXCEPTION, messageSource.getMessage(MessageCode.EXCEPTION)), null,
                 HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 

@@ -15,9 +15,9 @@ public class WebApiConfig {
     /**
      * メッセージソース
      *
-     * @return MessageSource
+     * @return {#link MessageSourceImpl}
      */
-    @Bean
+    @Bean("messageSource")
     public MessageSourceImpl messageSource() {
         return new MessageSourceImpl();
     }
@@ -25,7 +25,7 @@ public class WebApiConfig {
     /**
      * JacksonのObjectMapperをカスタマイズ
      *
-     * @return Jackson2ObjectMapperBuilder
+     * @return {#link Jackson2ObjectMapperBuilder}
      */
     @Bean
     public Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder() {
@@ -40,4 +40,3 @@ public class WebApiConfig {
         return builder;
     }
 }
-

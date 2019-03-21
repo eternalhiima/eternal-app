@@ -9,7 +9,7 @@ import lombok.Getter;
  *
  */
 @Getter
-public class EternalException extends Exception {
+public class EternalException extends RuntimeException {
 
     /** エラーコード */
     private String errorCode;
