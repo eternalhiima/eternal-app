@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import com.eternal.web.dto.CategoryDto;
 import com.eternal.web.dto.TalkThemeDto;
@@ -19,14 +20,15 @@ import com.eternal.web.message.MessageSourceImpl;
 import lombok.RequiredArgsConstructor;
 
 /**
- * {@link TalkThemeConverter}
+ * トークテーマコンバーター
+ *
  * @author taiki0304
  */
 @Component
 @RequiredArgsConstructor
 public class TalkThemeConverter {
 
-    /** メッセージソース */
+    /** {@link MessageSource} */
     private final MessageSourceImpl messageSource;
 
     /**
@@ -48,9 +50,7 @@ public class TalkThemeConverter {
                 .badCount(e.getBadCount())
                 .talkedCount(e.getTalkCount())
                 .categoryList(e.getCategoryList().stream()
-                        .map(c -> CategoryDto.builder()
-                                .categoryId(c.getId())
-                                .categoryName(c.getCategoryName()).build())
+                        .map(c -> new CategoryDto(c.getId(), c.getCategoryName()))
                         .collect(Collectors.toList()))
                 .postDateTime(e.getCreateDatetime()).build())
                 .collect(Collectors.toList()));
@@ -65,11 +65,13 @@ public class TalkThemeConverter {
      */
     public PostTalkResponse convert(TalkThemeEntity entity) {
         if (Objects.nonNull(entity)) {
-            return PostTalkResponse.builder().isSuccess(Boolean.TRUE)
+            return PostTalkResponse.builder()
+                    .isSuccess(true)
                     .message(messageSource.getMessage(MessageCode.POST_TALK_SUCCESS)).talkThemeId(entity.getId())
                     .build();
         }
-        return PostTalkResponse.builder().isSuccess(Boolean.FALSE)
+        return PostTalkResponse.builder()
+                .isSuccess(false)
                 .message(messageSource.getMessage(MessageCode.POST_TALK_FAILURE)).build();
     }
 }

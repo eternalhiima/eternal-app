@@ -6,6 +6,7 @@ package com.eternal.web.service;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.assertj.core.util.Arrays;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.eternal.web.aop.AppLog;
@@ -35,19 +36,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TalkThemeService {
 
-    /** トークテーマリポジトリ */
+    /** {@link TalkThemeRepository} */
     private final TalkThemeRepository talkThemeRepository;
 
-    /** ユーザーリポジトリ */
+    /** {@link UserRepository} */
     private final UserRepository userRepository;
 
-    /** カテゴリリポジトリ */
+    /** {@link CategoryRepository} */
     private final CategoryRepository categoryRepository;
 
-    /** メッセージソース */
+    /** {@link MessageSource} */
     private final MessageSourceImpl messageSource;
 
-    /** トークテーマコンバーター */
+    /** {@link TalkThemeConverter} */
     private final TalkThemeConverter talkThemeConverter;
 
     /**
@@ -61,7 +62,7 @@ public class TalkThemeService {
         // TODO: Pagiableを実装して無限スクロールができるように
         List<TalkThemeEntity> talkThemeEntityList =
                 talkThemeRepository.findAll(RepositoryUtil.sorter(request.getSortKey(), request.getSort())).stream()
-                        .filter(entity -> entity.getCategoryList().contains(category)).collect(Collectors.toList());
+                        .filter(e -> e.getCategoryList().contains(category)).collect(Collectors.toList());
         // converterでレスポンスDtoに変換し返却
         return talkThemeConverter.convert(talkThemeEntityList);
     }
