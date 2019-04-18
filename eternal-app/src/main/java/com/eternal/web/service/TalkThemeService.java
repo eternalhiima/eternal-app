@@ -4,6 +4,7 @@
 package com.eternal.web.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.assertj.core.util.Arrays;
 import org.springframework.context.MessageSource;
@@ -58,7 +59,8 @@ public class TalkThemeService {
     @AppLog
     public TalkThemeListResponse getTalkThemeListResponse(TalkThemeListRequest request) {
         CategoryEntity category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() -> new EternalException(messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
+                .orElseThrow(() -> new EternalException(MessageCode.UNKNOWN_CATEGORY,
+                        messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
         // TODO: Pagiableを実装して無限スクロールができるように
         List<TalkThemeEntity> talkThemeEntityList =
                 talkThemeRepository.findAll(RepositoryUtil.sorter(request.getSortKey(), request.getSort())).stream()
@@ -78,16 +80,26 @@ public class TalkThemeService {
     public PostTalkResponse postTalk(PostTalkRequest request) {
         // ユーザー名がすでに使用されている場合はエラー
         userRepository.findByUserName(request.getUserName())
-                .ifPresent(user -> throwUserDuplicateException(user.getUserName()));
+                .ifPresent(u -> throwUserDuplicateException(u.getUserName()));
         // ユーザーを新規作成
         UserEntity user = userRepository.saveAndFlush(UserEntity.of(request.getUserName()));
+        // カテゴリが新規の場合は保存、すでに存在する場合は使用回数を増やす
+        List<CategoryEntity> categoryList = categoryRepository.saveAll(request.getCategoryList().stream()
+                .map(d -> {
+                    if (Objects.nonNull(d.getCategoryId())) {
+                        return categoryRepository.findById(d.getCategoryId()).get().add();
+                    }
+                    return CategoryEntity.of(d);
+                }).collect(Collectors.toList()));
+        categoryRepository.flush();
         // トークテーマを保存
-        TalkThemeEntity savedEntity = talkThemeRepository.saveAndFlush(TalkThemeEntity.of(request, user.getId()));
-        return talkThemeConverter.convert(savedEntity);
+        TalkThemeEntity talkTheme =
+                talkThemeRepository.saveAndFlush(TalkThemeEntity.of(request, user.getId(), categoryList));
+        return talkThemeConverter.convert(talkTheme);
     }
 
     private void throwUserDuplicateException(String userName) {
-        throw new EternalException(
-                messageSource.getMessage(MessageCode.POST_DUPLICATE_USER, Arrays.asObjectArray(userName)));
+        throw new EternalException(MessageCode.POST_DUPLICATE_USER,
+                messageSource.getMessage(MessageCode.POST_DUPLICATE_USER, Arrays.array(userName)));
     }
 }

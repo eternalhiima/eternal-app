@@ -22,9 +22,6 @@ public class CategoryEntity extends AbstractEntity {
     /** カテゴリ名称 */
     private String categoryName;
 
-    /** ユーザー */
-    private Long userId;
-
     /** 作成日時 */
     private LocalDateTime createDatetime;
 
@@ -34,15 +31,28 @@ public class CategoryEntity extends AbstractEntity {
     /** 最終使用日時 */
     private LocalDateTime lastUsedDatetime;
 
-    public static CategoryEntity of(CategoryDto dto, Long userId) {
+    /**
+     * カテゴリを新規に追加する
+     * @param dto {@link CategoryDto}
+     * @return {@link CategoryEntity}
+     */
+    public static CategoryEntity of(CategoryDto dto) {
         CategoryEntity entity = new CategoryEntity();
         entity.id = dto.getCategoryId();
         entity.categoryName = dto.getCategoryName();
-        entity.userId = userId;
         entity.createDatetime = LocalDateTime.now();
         entity.usedCount = BigDecimal.ZERO;
         entity.lastUsedDatetime = LocalDateTime.now();
         return entity;
     }
 
+    /**
+     * カテゴリの使用回数を増やす
+     *
+     * @return {@link CategoryEntity}
+     */
+    public CategoryEntity add() {
+        this.usedCount = this.getUsedCount().add(BigDecimal.ONE);
+        return this;
+    }
 }

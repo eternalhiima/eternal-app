@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import org.assertj.core.util.Arrays;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import com.eternal.web.dto.CategoryDto;
@@ -67,7 +68,8 @@ public class TalkThemeConverter {
         if (Objects.nonNull(entity)) {
             return PostTalkResponse.builder()
                     .isSuccess(true)
-                    .message(messageSource.getMessage(MessageCode.POST_TALK_SUCCESS)).talkThemeId(entity.getId())
+                    .message(messageSource.getMessage(MessageCode.POST_TALK_SUCCESS, Arrays.array(entity.getTitle())))
+                    .talkThemeId(entity.getId())
                     .build();
         }
         return PostTalkResponse.builder()

@@ -7,19 +7,17 @@ package com.eternal.web.message;
  */
 public abstract class MessageCode {
 
-    /** リクエストの引数が不正です */
-    public static final String TYPE_MISMATCH_OTHERS = "typeMismatch.others";
-    /** [field={0}]引数が不正です */
-    public static final String TYPW_MISMATCH_FIELDS = "typeMismatch.fields";
-    /** システムエラーが発生しました */
-    public static final String EXCEPTION = "error.exception";
-
     /** {トークテーマタイトル}の投稿に成功しました。 */
-    public static final String POST_TALK_SUCCESS = "service.upd001.post.success";
+    public static final String POST_TALK_SUCCESS = "API10001";
     /** {トークテーマタイトル}の投稿に失敗しました。もう一度トークテーマを投稿して下さい。 */
-    public static final String POST_TALK_FAILURE ="service.upd001.post.failure";
+    public static final String POST_TALK_FAILURE ="API10002";
     /** {ユーザー}はすでに使用されています。 */
-    public static final String POST_DUPLICATE_USER = "service.upd001.post.userDuplicate";
+    public static final String POST_DUPLICATE_USER = "API10003";
     /** 指定したカテゴリは存在しません。 */
-    public static final String UNKNOWN_CATEGORY = "service.ref001.get.unknownCategory";
+    public static final String UNKNOWN_CATEGORY = "API10004";
+
+    /** 単項目チェックエラー */
+    public static final String VALIDATE_EXCEPTION = "API90000";
+    /** システムエラーが発生しました */
+    public static final String EXCEPTION = "API99999";
 }

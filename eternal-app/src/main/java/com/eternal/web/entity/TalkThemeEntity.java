@@ -3,7 +3,6 @@ package com.eternal.web.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -64,14 +63,12 @@ public class TalkThemeEntity extends AbstractEntity {
      * @param userId
      * @return {@link TalkThemeEntity}
      */
-    public static TalkThemeEntity of(PostTalkRequest request, Long userId) {
+    public static TalkThemeEntity of(PostTalkRequest request, Long userId, List<CategoryEntity> categoryList) {
         TalkThemeEntity entity = new TalkThemeEntity();
         entity.title = request.getTitle();
         entity.content = request.getContent();
         entity.relatedUrl = request.getRelatedUrl();
-        entity.categoryList = request.getCategoryList().stream()
-                .map(dto -> CategoryEntity.of(dto, userId))
-                .collect(Collectors.toList());
+        entity.categoryList = categoryList;
         entity.userId = userId;
         entity.goodCount = BigDecimal.ZERO;
         entity.badCount = BigDecimal.ZERO;

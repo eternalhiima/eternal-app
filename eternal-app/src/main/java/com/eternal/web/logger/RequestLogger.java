@@ -10,7 +10,6 @@ import com.eternal.web.type.ApiComponentType;
  * APIリクエストログ
  *
  * @author taiki0304
- *
  */
 public class RequestLogger {
 
@@ -20,13 +19,12 @@ public class RequestLogger {
     /**
      * リクエストログ
      *
-     * @param apiComponentType APIコンポーネントタイプ
+     * @param apiComponentType {@link ApiComponentType}
      * @param args リクエストパラメータ
      */
     public static void log(ApiComponentType apiComponentType, Stream<Object> args) {
         String requestLog = "apiName: " + apiComponentType.getName() + ", requestParams: "
-                + args.map(arg -> arg.toString()).collect(Collectors.joining(", ", "[param: ", "]"));
+                + args.map(arg -> arg.toString()).collect(Collectors.joining(", ", "[param:", "]"));
         log.info(requestLog);
     }
-
 }
