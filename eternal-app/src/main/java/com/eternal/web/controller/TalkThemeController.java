@@ -2,6 +2,7 @@ package com.eternal.web.controller;
 
 import java.math.BigDecimal;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +41,7 @@ public class TalkThemeController {
     public TalkThemeListResponse getTalkThemeList(
             @RequestParam(required = false, defaultValue = "20") BigDecimal count,
             @RequestParam BigDecimal maxCount,
-            @RequestParam(required = false) BigDecimal categoryId,
+            @RequestParam(required = false) Long categoryId,
             @RequestParam String sortKey,
             @RequestParam(required = false, defaultValue = "asc") String sort) {
         return talkThemeService.getTalkThemeListResponse(TalkThemeListRequest.of(count, maxCount, categoryId, sortKey, sort));
@@ -55,7 +56,7 @@ public class TalkThemeController {
     @ApiLog(apiComponentType = ApiComponentType.UPD001)
     @RequestMapping(value = WebApiEndPoint.POSTTALK_END_POINT, method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PostTalkResponse postTalkTheme(@RequestBody PostTalkRequest request) {
+    public PostTalkResponse postTalkTheme(@RequestBody @Validated PostTalkRequest request) {
         return talkThemeService.postTalk(request);
     }
 }

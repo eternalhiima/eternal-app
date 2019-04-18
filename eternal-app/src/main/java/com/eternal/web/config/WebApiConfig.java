@@ -1,8 +1,16 @@
 package com.eternal.web.config;
 
+import java.nio.charset.StandardCharsets;
+import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import com.eternal.web.json.deselializer.SortTypeDesilializer;
 import com.eternal.web.json.selializer.SortTypeSelializer;
 import com.eternal.web.message.MessageSourceImpl;
@@ -10,22 +18,47 @@ import com.eternal.web.type.SortType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Configuration
-public class WebApiConfig {
+@EnableWebMvc
+public class WebApiConfig extends WebMvcConfigurationSupport {
 
     /**
-     * メッセージソース
+     * {@link MessageSource}を独自に拡張する
      *
-     * @return {#link MessageSourceImpl}
+     * @return {@link MessageSourceImpl}
      */
     @Bean("messageSource")
     public MessageSourceImpl messageSource() {
-        return new MessageSourceImpl();
+        MessageSourceProperties prop = new MessageSourceProperties();
+        return new MessageSourceImpl(prop);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Validator getValidator() {
+        MessageSourceProperties prop = new MessageSourceProperties();
+        prop.setBasename("classpath:/i18n/ValidationMessages");
+        prop.setEncoding(StandardCharsets.UTF_8);
+        MessageSource messageSource = new MessageSourceAutoConfiguration().messageSource(prop);
+        return defaultValidator(messageSource);
+    }
+
+    /**
+     * バリデーションメッセージを独自に設定する
+     *
+     * @param message {@link MessageSourceImpl}
+     * @return {@link LocalValidatorFactoryBean}
+     */
+    @Bean
+    public LocalValidatorFactoryBean defaultValidator(MessageSource message) {
+        LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
+        factory.setValidationMessageSource(message);
+        return factory;
     }
 
     /**
      * JacksonのObjectMapperをカスタマイズ
      *
-     * @return {#link Jackson2ObjectMapperBuilder}
+     * @return {@link Jackson2ObjectMapperBuilder}
      */
     @Bean
     public Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder() {

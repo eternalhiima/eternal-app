@@ -3,7 +3,7 @@ package com.eternal.web.exception;
 import lombok.Getter;
 
 /**
- * 業務例外クラス
+ * 業務例外
  *
  * @author taiki0304
  *
@@ -12,10 +12,14 @@ import lombok.Getter;
 public class EternalException extends RuntimeException {
 
     /** エラーコード */
-    private String errorCode;
+    private final String errorCode;
 
-    public EternalException(String errorCode) {
+    /** エラーメッセージ */
+    private final String message;
+
+    public EternalException(String errorCode, String message) {
         super();
         this.errorCode = errorCode;
+        this.message = message;
     }
 }

@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
  * APIアプリケーションログ
  *
  * @author taiki0304
- *
  */
 public class ApplicationLogger {
 
@@ -18,11 +17,10 @@ public class ApplicationLogger {
     /**
      * アプリケーションログ
      *
-     * @param signature シグネチャ
+     * @param signature {@link Signature}
      */
     public static void log(Signature signature) {
         String appLog = "class: " + signature.getDeclaringType().toString();
         log.info(appLog);
     }
-
 }

@@ -11,7 +11,6 @@ import com.eternal.web.type.ApiComponentType;
  * APIレスポンスログ
  *
  * @author taiki0304
- *
  */
 public class ResponseLogger {
 
@@ -21,16 +20,16 @@ public class ResponseLogger {
     /**
      * レスポンスログ
      *
-     * @param apiComponentType APIコンポーネントタイプ
+     * @param apiComponentType {@link ApiComponentType}
      * @param responseDto レスポンスDto
      */
     public static void log(ApiComponentType apiComponentType, Object responseDto) {
-        String apiName = "apiName: " + apiComponentType.getName();
+        String apiName = "apiName:" + apiComponentType.getName();
         if (Objects.isNull(responseDto)) {
             log.info(apiName + ", Response is null.");
             return;
         }
-        StringJoiner responseBody = new StringJoiner(", ", ", responseBody: ", "");
+        StringJoiner responseBody = new StringJoiner(", ", ", responseBody:{", "}");
         Arrays.stream(responseDto.getClass().getDeclaredFields()).forEach(field -> {
             try {
                 field.setAccessible(true);

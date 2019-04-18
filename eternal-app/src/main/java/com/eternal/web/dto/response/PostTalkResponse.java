@@ -7,8 +7,9 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * @author taiki0304
+ * {@link PostTalkResponse}
  *
+ * @author taiki0304
  */
 @Builder
 @Getter

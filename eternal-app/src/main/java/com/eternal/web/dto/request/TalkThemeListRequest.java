@@ -23,7 +23,7 @@ public class TalkThemeListRequest {
     private BigDecimal maxCount;
 
     /** カテゴリID */
-    private BigDecimal categoryId;
+    private Long categoryId;
 
     /** ソートキー */
     private SortKeyType sortKey;
@@ -41,12 +41,12 @@ public class TalkThemeListRequest {
      * @param sort ソート順
      * @return TalkThemeListRequest
      */
-    public static TalkThemeListRequest of(BigDecimal count, BigDecimal maxCount, BigDecimal categoryId, String sortKey,
+    public static TalkThemeListRequest of(BigDecimal count, BigDecimal maxCount, Long categoryId, String sortKey,
             String sort) {
         SortKeyType sortKeyType = SortKeyType.get(sortKey)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.TYPW_MISMATCH_FIELDS));
+                .orElseThrow(() -> new IllegalArgumentException(MessageCode.VALIDATE_EXCEPTION));
         SortType sortType = SortType.get(sort)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.TYPW_MISMATCH_FIELDS));
+                .orElseThrow(() -> new IllegalArgumentException(MessageCode.VALIDATE_EXCEPTION));
         return TalkThemeListRequest.builder()
                 .count(count)
                 .maxCount(maxCount)

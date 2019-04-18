@@ -18,8 +18,8 @@ public class MessageSourceImpl implements MessageSource {
     /** メッセージソース */
     private final MessageSource messageSource;;
 
-    public MessageSourceImpl() {
-        messageSource = new MessageSourceAutoConfiguration().messageSource(new MessageSourceProperties());
+    public MessageSourceImpl(MessageSourceProperties prop) {
+        messageSource = new MessageSourceAutoConfiguration().messageSource(prop);
     }
 
     /**
