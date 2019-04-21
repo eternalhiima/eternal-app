@@ -4,14 +4,33 @@
 > author @taiki0304
 
 ## 概要
-- eternalのサーバーサイドとしてRESTAPIを構築する
+- eternalのサーバーサイドとしてSpringbootを用いてRESTAPIを構築する
 
 ## 環境構築
-- gitからPJをクローン
+### eclipse
+1. gitからPJをクローン
   - `git clone https://github.com/eternalhiima/eternal-app.git`
 - PJをeclipseにimportできるように変換する
   - `gradle eclipse`
-- eclipseにimport
+  - [gradleをinstallしてない場合](https://gradle.org/install/)
+- eclipseにimportする
+- eclise上でGradleプロジェクトに変換
+  - `eternal-app > 構成 > Gradleネーチャーの追加`をクリック
+  - プロジェクトのアイコンにゾウさんが表示されたら成功
+- dependencyの更新
+  - `eternal-app > Gradle > Gradleプロジェクトのリフレッシュ`
+- プロジェクトのビルド
+  - `プロジェクト > すべてビルド`
+
+> トラブルシューティング
+
+- 大量のエラーが消えない場合
+  - eclipseにlombokがインストールされていない可能性
+  - 参考) [Eclipse + STSにlombokをインストールする](https://qiita.com/t-iguchi/items/a0c88df01b6a601afbed)
+- eclipseにSTSがインストールされていない
+  - eclipseマーケットプレイスより、`Spring Tools`をインストールする
+- Gradleネーチャーの追加が表示されない
+  - eclipseマーケットプレイスより、`Buildship Gradle Integration`をインストールする
 
 ## ディレクトリ構成
 ```
@@ -19,22 +38,26 @@
   - aop // loggerなど
   - config
   - controller
+  - converter
   - dto
     - request // requestオブジェクト
     - response  // responseオブジェクト
-  - model
-  - service
-  - type
-  - exception
   - entity
-  - repository  // dao
+  - exception
   - json
     - desilializer
     - selializer  // enumの独自カスタマイズ
+  - logger
+  - message
+  - repository  // dao
+  - service
+  - type  // enum
   - util  // sorterなど
 - resources
-  - application.properties
-  - message.properties?
+  - application.yml
+  - logback.xml
+  - message.properties
+  - ValidationMessages.properties
 ```
 
 ## コーディングルール
@@ -55,6 +78,7 @@
   - 認証にセッションキーを持ったりとかに使用する
 - [Lombok](https://projectlombok.org/)
 - [Jackson](https://github.com/FasterXML/jackson)
+- [YAML](https://yaml.org/)
 - [SpringSecurity](https://spring.io/projects/spring-security)
   - 認証系に使用する
 
