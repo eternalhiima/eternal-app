@@ -3,6 +3,7 @@ package com.eternal.web.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -41,5 +42,6 @@ public class TalkThemeDto {
     private String postUser;
 
     /** 投稿日時 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime postDateTime;
 }

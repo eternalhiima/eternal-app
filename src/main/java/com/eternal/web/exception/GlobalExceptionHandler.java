@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import org.assertj.core.util.Arrays;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -28,14 +30,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private final MessageSourceImpl messageSource;
 
     /**
-     * 業務例外{@link EternalException}の処理
+     * 業務例外{@link ServiceException}の処理
      *
-     * @param e
-     * @param request
-     * @return
+     * @param {@link ServiceException} e
+     * @param {@link WebRequest} request
+     * @return {@link ResponseEntity}
      */
-    @ExceptionHandler(EternalException.class)
-    public ResponseEntity<Object> handleExceptionInternal(EternalException e, WebRequest request) {
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<Object> handleExceptionInternal(ServiceException e, WebRequest request) {
         return super.handleExceptionInternal(e, errorInfoResponse(new ErrorInfo(e.getErrorCode(), e.getMessage())),
                 null, HttpStatus.BAD_REQUEST, request);
     }
@@ -43,9 +45,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Springboot内の{@link Valid}で定義している例外の処理
      *
-     * @param e
-     * @param request
-     * @return
+     * @param {@link MethodArgumentNotValidException} e
+     * @param {@link HttpHeaders} heders
+     * @param {@link HttpStatus} status
+     * @param {@link WebRequest} request
+     * @return {@link ResponseEntity}
      */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
@@ -58,11 +62,30 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * その他の例外処理
+     * {@link BindException}の処理
      *
-     * @param e
-     * @param request
-     * @return
+     * @param {@link BindException} e
+     * @param {@link HttpHeaders} heders
+     * @param {@link HttpStatus} status
+     * @param {@link WebRequest} request
+     * @return {@link ResponseEntity}
+     */
+    @Override
+    public ResponseEntity<Object> handleBindException(BindException e, HttpHeaders headers, HttpStatus status,
+            WebRequest request) {
+        List<ErrorInfo> errorInfoList = e.getBindingResult().getFieldErrors().stream().map(
+                er -> new ErrorInfo(MessageCode.TYPE_MISMATCH_EXCEPTION, messageSource.getMessage(MessageCode.TYPE_MISMATCH_EXCEPTION, Arrays.array(er.getField()))))
+                .collect(Collectors.toList());
+        return super.handleExceptionInternal(e, new ErrorInfoResponse(errorInfoList), null, HttpStatus.BAD_REQUEST,
+                request);
+    }
+
+    /**
+     * その他の例外処理(システムエラー)
+     *
+     * @param {@link Exception} e
+     * @param {@link WebRequest} request
+     * @return {@link ResponseEntity}
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllException(Exception e, WebRequest request) {
@@ -75,11 +98,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * 包括的なエラー処理クラス
      *
-     * @param Exception e
-     * @param Object body
-     * @param HttpHeaders headers
-     * @param HttpStatus status
-     * @param WebRequest request
+     * @param {@link Exception} e
+     * @param {@link Object} body
+     * @param {@link HttpHeaders} headers
+     * @param {@link HttpStatus} status
+     * @param {@link WebRequest} request
+     * @return {@link ResponseEntity}
      */
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception e, Object body, HttpHeaders headers,

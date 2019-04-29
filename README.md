@@ -57,7 +57,6 @@
   - application.yml
   - logback.xml
   - message.properties
-  - ValidationMessages.properties
 ```
 
 ## コーディングルール

@@ -5,11 +5,11 @@ import org.springframework.stereotype.Repository;
 import com.eternal.web.entity.TalkThemeEntity;
 
 /**
- * TalkThemeRepository
+ * {@link TalkThemeRepository}
  *
  * @author taiki0304
  */
 @Repository
 public interface TalkThemeRepository extends JpaRepository<TalkThemeEntity, Long> {
-
+    // , PagingAndSortingRepository<TalkThemeEntity, Long>
 }

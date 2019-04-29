@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.assertj.core.util.Arrays;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.eternal.web.aop.AppLog;
@@ -19,7 +20,7 @@ import com.eternal.web.dto.response.TalkThemeListResponse;
 import com.eternal.web.entity.CategoryEntity;
 import com.eternal.web.entity.TalkThemeEntity;
 import com.eternal.web.entity.UserEntity;
-import com.eternal.web.exception.EternalException;
+import com.eternal.web.exception.ServiceException;
 import com.eternal.web.message.MessageCode;
 import com.eternal.web.message.MessageSourceImpl;
 import com.eternal.web.repository.CategoryRepository;
@@ -53,19 +54,24 @@ public class TalkThemeService {
     private final TalkThemeConverter talkThemeConverter;
 
     /**
+     * トークテーマのリストを取得する
+     *
      * @param {@link TalkThemeListRequest} request
      * @return {@link TalkThemeListResponse}
      */
     @AppLog
-    public TalkThemeListResponse getTalkThemeListResponse(TalkThemeListRequest request) {
-        CategoryEntity category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() -> new EternalException(MessageCode.UNKNOWN_CATEGORY,
-                        messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
-        // TODO: Pagiableを実装して無限スクロールができるように
-        List<TalkThemeEntity> talkThemeEntityList =
-                talkThemeRepository.findAll(RepositoryUtil.sorter(request.getSortKey(), request.getSort())).stream()
-                        .filter(e -> e.getCategoryList().contains(category)).collect(Collectors.toList());
-        // converterでレスポンスDtoに変換し返却
+    public TalkThemeListResponse getTalkThemeList(TalkThemeListRequest request) {
+        // DBよりトークテーマのリストを取得
+        List<TalkThemeEntity> talkThemeEntityList = talkThemeRepository.findAll(PageRequest.of(request.getPage(),
+                request.getSize(), RepositoryUtil.sorter(request.getSortKey(), request.getSort())))
+                .getContent();
+        if (Objects.nonNull(request.getCategoryId())) {
+            CategoryEntity category = categoryRepository.findById(request.getCategoryId())
+                    .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
+                            messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
+            // カテゴリでフィルタリング
+            talkThemeEntityList.stream().filter(e -> e.getCategoryList().contains(category)).collect(Collectors.toList());
+        }
         return talkThemeConverter.convert(talkThemeEntityList);
     }
 
@@ -84,13 +90,12 @@ public class TalkThemeService {
         // ユーザーを新規作成
         UserEntity user = userRepository.saveAndFlush(UserEntity.of(request.getUserName()));
         // カテゴリが新規の場合は保存、すでに存在する場合は使用回数を増やす
-        List<CategoryEntity> categoryList = categoryRepository.saveAll(request.getCategoryList().stream()
-                .map(d -> {
-                    if (Objects.nonNull(d.getCategoryId())) {
-                        return categoryRepository.findById(d.getCategoryId()).get().add();
-                    }
-                    return CategoryEntity.of(d);
-                }).collect(Collectors.toList()));
+        List<CategoryEntity> categoryList = categoryRepository.saveAll(request.getCategoryList().stream().map(d -> {
+            if (Objects.nonNull(d.getCategoryId())) {
+                return categoryRepository.findById(d.getCategoryId()).get().add();
+            }
+            return CategoryEntity.of(d);
+        }).collect(Collectors.toList()));
         categoryRepository.flush();
         // トークテーマを保存
         TalkThemeEntity talkTheme =
@@ -99,7 +104,7 @@ public class TalkThemeService {
     }
 
     private void throwUserDuplicateException(String userName) {
-        throw new EternalException(MessageCode.POST_DUPLICATE_USER,
+        throw new ServiceException(MessageCode.POST_DUPLICATE_USER,
                 messageSource.getMessage(MessageCode.POST_DUPLICATE_USER, Arrays.array(userName)));
     }
 }

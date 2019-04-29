@@ -18,6 +18,8 @@ public abstract class MessageCode {
 
     /** 単項目チェックエラー */
     public static final String VALIDATE_EXCEPTION = "API90000";
+    /** 型変換エラー */
+    public static final String TYPE_MISMATCH_EXCEPTION = "API91000";
     /** システムエラーが発生しました */
     public static final String EXCEPTION = "API99999";
 }

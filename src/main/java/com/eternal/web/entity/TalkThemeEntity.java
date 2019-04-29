@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -48,7 +49,7 @@ public class TalkThemeEntity extends AbstractEntity {
     private BigDecimal talkCount;
 
     /** カテゴリリスト */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TALK_THEME_CATEGORY_BIND", joinColumns = @JoinColumn(name = "TALK_THEME_ID"),
             inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
     private List<CategoryEntity> categoryList;

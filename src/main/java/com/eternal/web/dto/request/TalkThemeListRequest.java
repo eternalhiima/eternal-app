@@ -1,58 +1,39 @@
 package com.eternal.web.dto.request;
 
-import java.math.BigDecimal;
-import com.eternal.web.message.MessageCode;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import com.eternal.web.type.SortKeyType;
 import com.eternal.web.type.SortType;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
- * TalkThemeListRequest
+ * {@link TalkThemeListRequest}
  *
  * @author taiki0304
  */
-@Builder
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class TalkThemeListRequest {
 
-    /** 取得数 */
-    private BigDecimal count;
+    /** ページ */
+    @NotNull(message = "{API90009}")
+    private int page;
 
-    /** 最大取得数 */
-    private BigDecimal maxCount;
+    /** 取得数 */
+    @NotNull(message = "{API90009}")
+    @Max(message = "{API90003}", value = 100)
+    private int size;
 
     /** カテゴリID */
     private Long categoryId;
 
     /** ソートキー */
+    @NotNull(message = "{API90009}")
     private SortKeyType sortKey;
 
     /** ソート順 */
     private SortType sort;
-
-    /**
-     * TalkThemeListRequestを生成
-     *
-     * @param count 取得数
-     * @param maxCount 最大取得数
-     * @param categoryId カテゴリID
-     * @param sortKey ソートキー
-     * @param sort ソート順
-     * @return TalkThemeListRequest
-     */
-    public static TalkThemeListRequest of(BigDecimal count, BigDecimal maxCount, Long categoryId, String sortKey,
-            String sort) {
-        SortKeyType sortKeyType = SortKeyType.get(sortKey)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.VALIDATE_EXCEPTION));
-        SortType sortType = SortType.get(sort)
-                .orElseThrow(() -> new IllegalArgumentException(MessageCode.VALIDATE_EXCEPTION));
-        return TalkThemeListRequest.builder()
-                .count(count)
-                .maxCount(maxCount)
-                .categoryId(categoryId)
-                .sortKey(sortKeyType)
-                .sort(sortType)
-                .build();
-    }
 }

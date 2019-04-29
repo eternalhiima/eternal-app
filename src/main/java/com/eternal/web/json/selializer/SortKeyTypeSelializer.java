@@ -1,21 +1,21 @@
 package com.eternal.web.json.selializer;
 
 import java.io.IOException;
-import com.eternal.web.type.SortType;
+import com.eternal.web.type.SortKeyType;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
- * {@link SortTypeSelializer}
+ * {@link SortKeyTypeSelializer}
  *
  * @author taiki0304
  *
  */
-public class SortTypeSelializer extends JsonSerializer<SortType> {
+public class SortKeyTypeSelializer extends JsonSerializer<SortKeyType> {
 
     @Override
-    public void serialize(SortType value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+    public void serialize(SortKeyType value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException {
         jsonGenerator.writeString(value.getKey());
     }

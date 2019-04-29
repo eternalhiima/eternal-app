@@ -9,7 +9,7 @@ import lombok.Getter;
  *
  */
 @Getter
-public class EternalException extends RuntimeException {
+public class ServiceException extends RuntimeException {
 
     /** エラーコード */
     private final String errorCode;
@@ -17,7 +17,7 @@ public class EternalException extends RuntimeException {
     /** エラーメッセージ */
     private final String message;
 
-    public EternalException(String errorCode, String message) {
+    public ServiceException(String errorCode, String message) {
         super();
         this.errorCode = errorCode;
         this.message = message;
