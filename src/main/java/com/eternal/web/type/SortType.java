@@ -1,7 +1,7 @@
 package com.eternal.web.type;
 
-import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,7 +27,7 @@ public enum SortType {
      * @return Optional<SortType> ソートタイプ
      */
     public static Optional<SortType> get(String key) {
-        return Arrays.stream(values())
+        return Stream.of(values())
                 .filter(x -> key.equals(x.getKey()))
                 .findFirst();
     }

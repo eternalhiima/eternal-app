@@ -13,7 +13,7 @@ public class CategoryDto {
     /** カテゴリID */
     private Long categoryId;
 
-    /** カテゴ名 */
-    @NotEmpty(message = "{API90001}")
+    /** カテゴリ名 */
+    @NotEmpty(message = "{API90009}")
     private String categoryName;
 }

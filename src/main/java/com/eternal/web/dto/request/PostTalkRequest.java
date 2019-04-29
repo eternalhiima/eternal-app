@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import com.eternal.web.dto.CategoryDto;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
@@ -15,12 +16,13 @@ import lombok.Getter;
  *
  * @author taiki0304
  */
-@AllArgsConstructor
 @Getter
+@EqualsAndHashCode
+@AllArgsConstructor
 public class PostTalkRequest {
 
     /** トークテーマタイトル */
-    @NotEmpty(message = "{API90001}")
+    @NotEmpty(message = "{API90009}")
     private String title;
 
     /** カテゴリリスト */
@@ -28,11 +30,11 @@ public class PostTalkRequest {
     private List<CategoryDto> categoryList;
 
     /** トークテーマ内容 */
-    @NotEmpty(message = "{API90001}")
+    @NotEmpty(message = "{API90009}")
     private String content;
 
     /** 投稿者名 */
-    @NotEmpty(message = "{API90001}")
+    @NotEmpty(message = "{API90009}")
     private String userName;
 
     /** 関連URL */

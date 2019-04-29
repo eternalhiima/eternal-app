@@ -1,7 +1,7 @@
 package com.eternal.web.type;
 
-import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -15,15 +15,16 @@ import lombok.Getter;
 public enum SortKeyType {
 
     /** 総合ランキング */
+    // TODO: 総合ランキング用のカラムをTalkThemeEntityに追加する
     RANK("01", "TODO"),
     /** GOOD数 */
-    GOOD("02", "GOOD_COUNT"),
+    GOOD("02", "goodCount"),
     /** BAD数 */
-    BAD("03", "BAD_COUNT"),
+    BAD("03", "badCount"),
     /** トーク数 */
-    TALK("04", "TALK_COUNT"),
+    TALK("04", "talkCount"),
     /** タイトル名称 */
-    TITLE("05", "TITLE");
+    TITLE("05", "title");
 
     /** ソートタイプキー */
     private String key;
@@ -36,7 +37,7 @@ public enum SortKeyType {
      * @return Optional<SortKeyType>
      */
     public static Optional<SortKeyType> get(String key) {
-        return Arrays.stream(values())
+        return Stream.of(values())
                 .filter(x -> key.equals(x.getKey()))
                 .findFirst();
     }

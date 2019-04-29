@@ -1,12 +1,10 @@
 package com.eternal.web.controller;
 
-import java.math.BigDecimal;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.eternal.web.aop.ApiLog;
 import com.eternal.web.config.WebApiEndPoint;
@@ -23,28 +21,19 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(WebApiEndPoint.ROOT_END_POINT)
 public class TalkThemeController {
 
-    /** トークテーマサービス */
+    /** {@link TalkThemeService} */
     private final TalkThemeService talkThemeService;
 
     /**
      * Ref001_トークテーマ一覧取得
      *
-     * @param count 取得数
-     * @param maxCount 最大取得数
-     * @param categoryId カテゴリID
-     * @param sortKey ソートキー
-     * @param sort ソート順
-     * @return TalkThemeListResponse
+     * @param {@link TalkThemeListRequest}
+     * @return {@link TalkThemeListResponse}
      */
     @ApiLog(apiComponentType = ApiComponentType.REF001)
     @RequestMapping(value = WebApiEndPoint.TALKLIST_END_POINT, method = RequestMethod.GET)
-    public TalkThemeListResponse getTalkThemeList(
-            @RequestParam(required = false, defaultValue = "20") BigDecimal count,
-            @RequestParam BigDecimal maxCount,
-            @RequestParam(required = false) Long categoryId,
-            @RequestParam String sortKey,
-            @RequestParam(required = false, defaultValue = "asc") String sort) {
-        return talkThemeService.getTalkThemeListResponse(TalkThemeListRequest.of(count, maxCount, categoryId, sortKey, sort));
+    public TalkThemeListResponse getTalkThemeList(@Validated TalkThemeListRequest request) {
+        return talkThemeService.getTalkThemeList(request);
     }
 
     /**
