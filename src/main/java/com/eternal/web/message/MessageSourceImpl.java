@@ -1,5 +1,6 @@
 package com.eternal.web.message;
 
+import java.util.List;
 import java.util.Locale;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceProperties;
@@ -37,8 +38,8 @@ public class MessageSourceImpl implements MessageSource {
      * @param args 置換文字列
      * @return message
      */
-    public String getMessage(String code, Object[] args) {
-        return messageSource.getMessage(code, args, Locale.getDefault());
+    public String getMessage(String code, List<Object> args) {
+        return messageSource.getMessage(code, args.toArray(), Locale.getDefault());
     }
 
     @Override

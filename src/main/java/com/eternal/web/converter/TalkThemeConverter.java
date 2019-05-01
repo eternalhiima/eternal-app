@@ -4,11 +4,11 @@
 package com.eternal.web.converter;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
-import org.assertj.core.util.Arrays;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import com.eternal.web.dto.CategoryDto;
@@ -68,7 +68,7 @@ public class TalkThemeConverter {
         if (Objects.nonNull(entity)) {
             return PostTalkResponse.builder()
                     .isSuccess(true)
-                    .message(messageSource.getMessage(MessageCode.POST_TALK_SUCCESS, Arrays.array(entity.getTitle())))
+                    .message(messageSource.getMessage(MessageCode.POST_TALK_SUCCESS, Arrays.asList(entity.getTitle())))
                     .talkThemeId(entity.getId())
                     .build();
         }

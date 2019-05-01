@@ -11,5 +11,4 @@ import com.eternal.web.entity.TalkThemeEntity;
  */
 @Repository
 public interface TalkThemeRepository extends JpaRepository<TalkThemeEntity, Long> {
-    // , PagingAndSortingRepository<TalkThemeEntity, Long>
 }
