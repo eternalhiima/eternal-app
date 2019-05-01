@@ -3,10 +3,11 @@
  */
 package com.eternal.web.service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import org.assertj.core.util.Arrays;
+
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,7 @@ import lombok.RequiredArgsConstructor;
  *
  * @author taiki0304
  */
-@Service
-@RequiredArgsConstructor
-public class TalkThemeService {
+@Service @RequiredArgsConstructor public class TalkThemeService {
 
     /** {@link TalkThemeRepository} */
     private final TalkThemeRepository talkThemeRepository;
@@ -59,18 +58,18 @@ public class TalkThemeService {
      * @param {@link TalkThemeListRequest} request
      * @return {@link TalkThemeListResponse}
      */
-    @AppLog
-    public TalkThemeListResponse getTalkThemeList(TalkThemeListRequest request) {
+    @AppLog public TalkThemeListResponse getTalkThemeList(TalkThemeListRequest request) {
         // DBよりトークテーマのリストを取得
-        List<TalkThemeEntity> talkThemeEntityList = talkThemeRepository.findAll(PageRequest.of(request.getPage(),
-                request.getSize(), RepositoryUtil.sorter(request.getSortKey(), request.getSort())))
-                .getContent();
+        List<TalkThemeEntity> talkThemeEntityList = talkThemeRepository.findAll(PageRequest
+                .of(request.getPage(), request.getSize(),
+                        RepositoryUtil.sorter(request.getSortKey(), request.getSort()))).getContent();
         if (Objects.nonNull(request.getCategoryId())) {
-            CategoryEntity category = categoryRepository.findById(request.getCategoryId())
-                    .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
+            CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElseThrow(
+                    () -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
                             messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
             // カテゴリでフィルタリング
-            talkThemeEntityList.stream().filter(e -> e.getCategoryList().contains(category)).collect(Collectors.toList());
+            talkThemeEntityList = talkThemeEntityList.stream().filter(e -> e.getCategoryList().contains(category))
+                    .collect(Collectors.toList());
         }
         return talkThemeConverter.convert(talkThemeEntityList);
     }
@@ -81,9 +80,7 @@ public class TalkThemeService {
      * @param {@link PostTalkRequest} request
      * @return {@link PostTalkThemeResponse}
      */
-    @AppLog
-    @Transactional
-    public PostTalkResponse postTalk(PostTalkRequest request) {
+    @AppLog @Transactional public PostTalkResponse postTalk(PostTalkRequest request) {
         // ユーザー名がすでに使用されている場合はエラー
         userRepository.findByUserName(request.getUserName())
                 .ifPresent(u -> throwUserDuplicateException(u.getUserName()));
@@ -105,6 +102,6 @@ public class TalkThemeService {
 
     private void throwUserDuplicateException(String userName) {
         throw new ServiceException(MessageCode.POST_DUPLICATE_USER,
-                messageSource.getMessage(MessageCode.POST_DUPLICATE_USER, Arrays.array(userName)));
+                messageSource.getMessage(MessageCode.POST_DUPLICATE_USER, Arrays.asList(userName)));
     }
 }

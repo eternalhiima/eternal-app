@@ -1,11 +1,11 @@
 package com.eternal.web.exception;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
-import org.assertj.core.util.Arrays;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -74,7 +74,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleBindException(BindException e, HttpHeaders headers, HttpStatus status,
             WebRequest request) {
         List<ErrorInfo> errorInfoList = e.getBindingResult().getFieldErrors().stream().map(
-                er -> new ErrorInfo(MessageCode.TYPE_MISMATCH_EXCEPTION, messageSource.getMessage(MessageCode.TYPE_MISMATCH_EXCEPTION, Arrays.array(er.getField()))))
+                er -> new ErrorInfo(MessageCode.TYPE_MISMATCH_EXCEPTION, messageSource.getMessage(MessageCode.TYPE_MISMATCH_EXCEPTION, Arrays
+                        .asList(er.getField()))))
                 .collect(Collectors.toList());
         return super.handleExceptionInternal(e, new ErrorInfoResponse(errorInfoList), null, HttpStatus.BAD_REQUEST,
                 request);

@@ -24,7 +24,9 @@ public enum SortKeyType {
     /** トーク数 */
     TALK("04", "talkCount"),
     /** タイトル名称 */
-    TITLE("05", "title");
+    TITLE("05", "title"),
+    /** 使用回数 */
+    USED("06", "usedCount");
 
     /** ソートタイプキー */
     private String key;
