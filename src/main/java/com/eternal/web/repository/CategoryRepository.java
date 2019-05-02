@@ -19,6 +19,12 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
 
-    public Page<CategoryEntity> findByCategoryNameContaining(String categoryName, Pageable pageable);
+    /**
+     * categoryNameを含む検索結果を{@link Page}として返却する
+     * @param categoryName
+     * @param {@link Pageable} pageable
+     * @return {@link Page}
+     */
+    Page<CategoryEntity> findByCategoryNameContaining(String categoryName, Pageable pageable);
 
 }

@@ -109,7 +109,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception e, Object body, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
-        return super.handleExceptionInternal(e, body, headers, HttpStatus.BAD_REQUEST, request);
+        return super.handleExceptionInternal(e, body, headers, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     private ErrorInfoResponse errorInfoResponse(ErrorInfo error) {
