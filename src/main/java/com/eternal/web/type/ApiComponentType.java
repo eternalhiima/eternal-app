@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * ApiComponentType
+ * ログ出力用のApiComponentType
  *
  * @author taiki0304
- *
  */
 @AllArgsConstructor
 @Getter
@@ -26,7 +25,9 @@ public enum ApiComponentType {
     /** Upd002_トークテーマ評価 */
     UPD002("upd002"),
     /** Upd003_コメント投稿 */
-    UPD003("upd003");
+    UPD003("upd003"),
+    /** unknown */
+    UNKNOWN("unknown");
 
     /** API名 */
     private String name;

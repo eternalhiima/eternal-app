@@ -35,7 +35,9 @@ import lombok.RequiredArgsConstructor;
  *
  * @author taiki0304
  */
-@Service @RequiredArgsConstructor public class TalkThemeService {
+@Service
+@RequiredArgsConstructor
+public class TalkThemeService {
 
     /** {@link TalkThemeRepository} */
     private final TalkThemeRepository talkThemeRepository;
@@ -58,14 +60,15 @@ import lombok.RequiredArgsConstructor;
      * @param {@link TalkThemeListRequest} request
      * @return {@link TalkThemeListResponse}
      */
-    @AppLog public TalkThemeListResponse getTalkThemeList(TalkThemeListRequest request) {
+    @AppLog
+    public TalkThemeListResponse getTalkThemeList(TalkThemeListRequest request) {
         // DBよりトークテーマのリストを取得
-        List<TalkThemeEntity> talkThemeEntityList = talkThemeRepository.findAll(PageRequest
-                .of(request.getPage(), request.getSize(),
+        List<TalkThemeEntity> talkThemeEntityList = talkThemeRepository.findAll(
+                PageRequest.of(request.getPage(), request.getSize(),
                         RepositoryUtil.sorter(request.getSortKey(), request.getSort()))).getContent();
         if (Objects.nonNull(request.getCategoryId())) {
-            CategoryEntity category = categoryRepository.findById(request.getCategoryId()).orElseThrow(
-                    () -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
+            CategoryEntity category = categoryRepository.findById(request.getCategoryId())
+                    .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
                             messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
             // カテゴリでフィルタリング
             talkThemeEntityList = talkThemeEntityList.stream().filter(e -> e.getCategoryList().contains(category))
@@ -78,9 +81,11 @@ import lombok.RequiredArgsConstructor;
      * トークテーマをDBに保存し、レスポンスを返却する
      *
      * @param {@link PostTalkRequest} request
-     * @return {@link PostTalkThemeResponse}
+     * @return {@link PostTalkResponse}
      */
-    @AppLog @Transactional public PostTalkResponse postTalk(PostTalkRequest request) {
+    @AppLog
+    @Transactional
+    public PostTalkResponse postTalk(PostTalkRequest request) {
         // ユーザー名がすでに使用されている場合はエラー
         userRepository.findByUserName(request.getUserName())
                 .ifPresent(u -> throwUserDuplicateException(u.getUserName()));

@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ApplicationLogの出力対象に付加する
+ * application.logの出力対象に付加する
  *
  * @author taiki0304
  *

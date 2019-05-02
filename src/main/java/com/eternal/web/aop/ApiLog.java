@@ -11,13 +11,11 @@ import com.eternal.web.type.ApiComponentType;
  * API_REQUEST.logとAPI_RESPONSE.logの出力対象となる
  *
  * @author taiki0304
- *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ApiLog {
 
-    /** APIコンポーネントタイプ */
+    /** {@link ApiComponentType} */
     ApiComponentType apiComponentType();
-
 }

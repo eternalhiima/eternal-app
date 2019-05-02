@@ -54,6 +54,7 @@ import java.util.stream.Collectors;
      * @param {@link CategoryListRequest} request
      * @return {@link CategoryListResponse}
      */
+    @AppLog
     public CategoryListResponse getCategoryList(CategoryListRequest request) {
         // リクエストパラメータにソート条件がある場合は、使用回数でソートする
         Sort sort = Objects.nonNull(request.getSort()) ?
