@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.eternal.web.dto.request.EvalTalkRequest;
+import com.eternal.web.dto.response.EvalTalkResponse;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -102,7 +104,29 @@ public class TalkThemeService {
         // トークテーマを保存
         TalkThemeEntity talkTheme =
                 talkThemeRepository.saveAndFlush(TalkThemeEntity.of(request, user.getId(), categoryList));
-        return talkThemeConverter.convert(talkTheme);
+        String message = Objects.nonNull(talkTheme) ?
+                messageSource.getMessage(MessageCode.POST_TALK_SUCCESS, Arrays.asList(talkTheme.getTitle())) :
+                messageSource.getMessage(MessageCode.POST_TALK_FAILURE);
+        return talkThemeConverter.convert(talkTheme, message);
+    }
+
+    /**
+     * トークテーマの評価を更新する
+     *
+     * @param {@link EvalTalkRequest} request
+     * @return {@link EvalTalkResponse}
+     */
+    @AppLog
+    @Transactional
+    public EvalTalkResponse evalTalk(EvalTalkRequest request) {
+        // トークテーマをDBより取得
+        TalkThemeEntity talkTheme = talkThemeRepository.findById(request.getTalkThemeId())
+                .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_TALK,
+                        messageSource.getMessage(MessageCode.UNKNOWN_TALK)));
+        // トークテーマの評価を更新し保存
+        TalkThemeEntity updatedEntity =
+                talkThemeRepository.saveAndFlush(talkTheme.eval(talkTheme, request.getEvaluate()));
+        return talkThemeConverter.convertEval(updatedEntity);
     }
 
     private void throwUserDuplicateException(String userName) {

@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import com.eternal.web.dto.request.PostTalkRequest;
+import com.eternal.web.type.EvaluationType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,26 +80,21 @@ public class TalkThemeEntity extends AbstractEntity {
     }
 
     /**
-     * トークテーマを高評価する
+     * トークテーマを評価する
      *
-     * @param entity
-     * @return
+     * @param {@link TalkThemeEntity} entity
+     * @pram {@link EvaluationType} eval
+     * @return {@link TalkThemeEntity}
      */
-    public TalkThemeEntity evalGood(TalkThemeEntity entity) {
-        // TODO: good数を増やしたトークテーマを返却する
-        return null;
+    public TalkThemeEntity eval(TalkThemeEntity entity, EvaluationType eval) {
+        switch (eval) {
+            case GOOD:
+                entity.goodCount = entity.goodCount.add(BigDecimal.ONE);
+                break;
+            case BAD:
+                entity.badCount = entity.badCount.add(BigDecimal.ONE);
+                break;
+        }
+        return entity;
     }
-
-    /**
-     * トークテーマを低評価する
-     *
-     * @param entity
-     * @return
-     */
-    public TalkThemeEntity evalBad(TalkThemeEntity entity) {
-        // TODO: bad数を増やしたトークテーマを返却する
-        return null;
-    }
-
-
 }

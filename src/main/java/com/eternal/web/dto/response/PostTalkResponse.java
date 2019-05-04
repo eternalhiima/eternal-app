@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.eternal.web.dto.response;
 
 import lombok.Builder;
@@ -14,9 +11,6 @@ import lombok.Getter;
 @Builder
 @Getter
 public class PostTalkResponse {
-
-    /** 投稿成功フラグ */
-    private Boolean isSuccess;
 
     /** メッセージ */
     private String message;

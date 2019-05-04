@@ -2,6 +2,8 @@ server:
   port: 8090
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:mysql://hiima-it.ck0u7o3jzfwy.ap-northeast-1.rds.amazonaws.com/hiima
     username: root
@@ -11,6 +13,3 @@ spring:
     database: MYSQL
     hibernate:
       use-new-id-generator-mappings: false
-  jackson:
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false

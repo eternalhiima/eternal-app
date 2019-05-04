@@ -7,12 +7,12 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
- * {@link SortKeyTypeSelializer}
+ * {@link SortKeyTypeSerializer}
  *
  * @author taiki0304
  *
  */
-public class SortKeyTypeSelializer extends JsonSerializer<SortKeyType> {
+public class SortKeyTypeSerializer extends JsonSerializer<SortKeyType> {
 
     @Override
     public void serialize(SortKeyType value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)

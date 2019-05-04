@@ -2,13 +2,16 @@ package com.eternal.web.type;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
  * SortType
- * @author taiki0304
  *
+ * @author taiki0304
  */
 @AllArgsConstructor
 @Getter
@@ -33,6 +36,6 @@ public enum SortType {
     }
 
     public boolean isAsc() {
-        return SortType.ASC.getKey().equals(key);
+        return this.equals(SortType.ASC);
     }
 }

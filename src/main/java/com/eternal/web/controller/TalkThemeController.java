@@ -1,5 +1,7 @@
 package com.eternal.web.controller;
 
+import com.eternal.web.dto.request.EvalTalkRequest;
+import com.eternal.web.dto.response.EvalTalkResponse;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,5 +49,18 @@ public class TalkThemeController {
             consumes = MediaType.APPLICATION_JSON_VALUE)
     public PostTalkResponse postTalkTheme(@RequestBody @Validated PostTalkRequest request) {
         return talkThemeService.postTalk(request);
+    }
+
+    /**
+     * Upd002_トークテーマ評価
+     *
+     * @param {@link EvalTalkRequest} リクエスト
+     * @return {@link EvalTalkResponse}
+     */
+    @ApiLog(apiComponentType = ApiComponentType.UPD002)
+    @RequestMapping(value = WebApiEndPoint.EVALUATE_END_POINT, method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public EvalTalkResponse evalTalkTheme(@RequestBody @Validated EvalTalkRequest request) {
+        return talkThemeService.evalTalk(request);
     }
 }

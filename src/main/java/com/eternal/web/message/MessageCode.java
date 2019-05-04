@@ -15,11 +15,14 @@ public abstract class MessageCode {
     public static final String POST_DUPLICATE_USER = "API10003";
     /** 指定したカテゴリは存在しません。 */
     public static final String UNKNOWN_CATEGORY = "API10004";
+    /** 指定したトークテーマは存在しません。 */
+    public static final String UNKNOWN_TALK = "API10005";
 
     /** 単項目チェックエラー */
     public static final String VALIDATE_EXCEPTION = "API90000";
-    /** 型変換エラー */
+    /** {0}の型が不正です。 */
     public static final String TYPE_MISMATCH_EXCEPTION = "API91000";
+
     /** システムエラーが発生しました */
     public static final String EXCEPTION = "API99999";
 }
