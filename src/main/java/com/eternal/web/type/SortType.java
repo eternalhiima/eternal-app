@@ -7,8 +7,8 @@ import lombok.Getter;
 
 /**
  * SortType
- * @author taiki0304
  *
+ * @author taiki0304
  */
 @AllArgsConstructor
 @Getter
@@ -33,6 +33,6 @@ public enum SortType {
     }
 
     public boolean isAsc() {
-        return SortType.ASC.getKey().equals(key);
+        return this.equals(SortType.ASC);
     }
 }

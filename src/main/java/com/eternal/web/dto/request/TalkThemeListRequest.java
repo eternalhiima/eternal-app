@@ -38,5 +38,6 @@ public class TalkThemeListRequest {
     private SortKeyType sortKey;
 
     /** ソート順 */
+    @NotNull(message = "{API90009}")
     private SortType sort;
 }

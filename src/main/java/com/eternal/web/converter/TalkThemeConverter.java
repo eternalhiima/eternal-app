@@ -1,27 +1,21 @@
-/**
- *
- */
 package com.eternal.web.converter;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-import org.springframework.context.MessageSource;
-import org.springframework.stereotype.Component;
 import com.eternal.web.dto.CategoryDto;
 import com.eternal.web.dto.TalkThemeDto;
+import com.eternal.web.dto.response.EvalTalkResponse;
 import com.eternal.web.dto.response.PostTalkResponse;
 import com.eternal.web.dto.response.TalkThemeListResponse;
 import com.eternal.web.entity.TalkThemeEntity;
-import com.eternal.web.message.MessageCode;
-import com.eternal.web.message.MessageSourceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
- * トークテーマコンバーター
+ * {@link TalkThemeConverter}
  *
  * @author taiki0304
  */
@@ -29,13 +23,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TalkThemeConverter {
 
-    /** {@link MessageSource} */
-    private final MessageSourceImpl messageSource;
-
     /**
      * Ref001_トークテーマ一覧取得用のレスポンスコンバーター
      *
-     * @param entityList {@link TalkThemeEntity}
+     * @param {@link TalkThemeEntity} entityList
      * @return {@link TalkThemeListResponse}
      */
     public TalkThemeListResponse convert(List<TalkThemeEntity> entityList) {
@@ -61,19 +52,27 @@ public class TalkThemeConverter {
     /**
      * Upd001_トークテーマ投稿用のレスポンスコンバーター
      *
-     * @param entity {@link TalkThemeEntity}
+     * @param {@link TalkThemeEntity} entity
      * @return {@link PostTalkResponse}
      */
-    public PostTalkResponse convert(TalkThemeEntity entity) {
-        if (Objects.nonNull(entity)) {
-            return PostTalkResponse.builder()
-                    .isSuccess(true)
-                    .message(messageSource.getMessage(MessageCode.POST_TALK_SUCCESS, Arrays.asList(entity.getTitle())))
-                    .talkThemeId(entity.getId())
-                    .build();
-        }
+    public PostTalkResponse convert(TalkThemeEntity entity, String message) {
         return PostTalkResponse.builder()
-                .isSuccess(false)
-                .message(messageSource.getMessage(MessageCode.POST_TALK_FAILURE)).build();
+                .message(message)
+                .talkThemeId(entity.getId())
+                .build();
+    }
+
+    /**
+     * Upr002_トークテーマ評価用のコンバーター
+     *
+     * @param {@link TalkThemeEntity} entity
+     * @return {@linkEvalTalkResponse}
+     */
+    public EvalTalkResponse convertEval(TalkThemeEntity entity) {
+        return EvalTalkResponse.builder()
+                .talkThemeId(entity.getId())
+                .goodCount(entity.getGoodCount())
+                .badCount(entity.getBadCount())
+                .build();
     }
 }

@@ -3,37 +3,20 @@
  */
 package com.eternal.web.service;
 
-import com.eternal.web.aop.AppLog;
-import com.eternal.web.converter.CategoryConverter;
-import com.eternal.web.converter.TalkThemeConverter;
-import com.eternal.web.dto.request.CategoryListRequest;
-import com.eternal.web.dto.request.PostTalkRequest;
-import com.eternal.web.dto.request.TalkThemeListRequest;
-import com.eternal.web.dto.response.CategoryListResponse;
-import com.eternal.web.dto.response.PostTalkResponse;
-import com.eternal.web.dto.response.TalkThemeListResponse;
-import com.eternal.web.entity.CategoryEntity;
-import com.eternal.web.entity.TalkThemeEntity;
-import com.eternal.web.entity.UserEntity;
-import com.eternal.web.exception.ServiceException;
-import com.eternal.web.message.MessageCode;
-import com.eternal.web.message.MessageSourceImpl;
-import com.eternal.web.repository.CategoryRepository;
-import com.eternal.web.repository.TalkThemeRepository;
-import com.eternal.web.repository.UserRepository;
-import com.eternal.web.type.SortKeyType;
-import com.eternal.web.util.RepositoryUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
+import java.util.List;
+import java.util.Objects;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import com.eternal.web.aop.AppLog;
+import com.eternal.web.converter.CategoryConverter;
+import com.eternal.web.dto.request.CategoryListRequest;
+import com.eternal.web.dto.response.CategoryListResponse;
+import com.eternal.web.entity.CategoryEntity;
+import com.eternal.web.repository.CategoryRepository;
+import com.eternal.web.type.SortKeyType;
+import com.eternal.web.util.RepositoryUtil;
+import lombok.RequiredArgsConstructor;
 
 /**
  * {@link CategoryService}

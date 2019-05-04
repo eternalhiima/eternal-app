@@ -1,10 +1,8 @@
 package com.eternal.web.dto.response;
 
-import com.eternal.web.dto.CategoryDto;
-import com.eternal.web.dto.TalkThemeDto;
-import lombok.Data;
-
 import java.util.List;
+import com.eternal.web.dto.CategoryDto;
+import lombok.Data;
 
 /**
  * {@link CategoryListResponse}
