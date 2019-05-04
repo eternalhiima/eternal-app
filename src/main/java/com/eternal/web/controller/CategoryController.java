@@ -1,23 +1,18 @@
 package com.eternal.web.controller;
 
-import com.eternal.web.aop.ApiLog;
-import com.eternal.web.config.WebApiEndPoint;
-import com.eternal.web.dto.request.CategoryListRequest;
-import com.eternal.web.dto.request.PostTalkRequest;
-import com.eternal.web.dto.request.TalkThemeListRequest;
-import com.eternal.web.dto.response.CategoryListResponse;
-import com.eternal.web.dto.response.PostTalkResponse;
-import com.eternal.web.dto.response.TalkThemeListResponse;
-import com.eternal.web.service.CategoryService;
-import com.eternal.web.service.TalkThemeService;
-import com.eternal.web.type.ApiComponentType;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import com.eternal.web.aop.ApiLog;
+import com.eternal.web.config.WebApiEndPoint;
+import com.eternal.web.dto.request.CategoryListRequest;
+import com.eternal.web.dto.request.TalkThemeListRequest;
+import com.eternal.web.dto.response.CategoryListResponse;
+import com.eternal.web.dto.response.TalkThemeListResponse;
+import com.eternal.web.service.CategoryService;
+import com.eternal.web.type.ApiComponentType;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor

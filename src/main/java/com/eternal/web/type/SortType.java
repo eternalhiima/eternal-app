@@ -2,9 +2,6 @@ package com.eternal.web.type;
 
 import java.util.Optional;
 import java.util.stream.Stream;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

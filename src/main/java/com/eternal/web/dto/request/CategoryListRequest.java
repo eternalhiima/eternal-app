@@ -1,14 +1,12 @@
 package com.eternal.web.dto.request;
 
-import com.eternal.web.type.SortKeyType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import com.eternal.web.type.SortType;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 /**
  * {@link CategoryListRequest}

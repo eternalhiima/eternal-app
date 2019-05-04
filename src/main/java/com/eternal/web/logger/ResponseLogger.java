@@ -1,17 +1,13 @@
 package com.eternal.web.logger;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.StringJoiner;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import com.eternal.web.type.ApiComponentType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.eternal.web.type.ApiComponentType;
-import org.springframework.stereotype.Component;
 
 /**
  * APIレスポンスログ

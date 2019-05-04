@@ -1,12 +1,10 @@
 package com.eternal.web.dto.request;
 
+import javax.validation.constraints.NotNull;
 import com.eternal.web.type.EvaluationType;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * {@link EvalTalkRequest}

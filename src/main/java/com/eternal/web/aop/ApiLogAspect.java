@@ -1,14 +1,6 @@
 package com.eternal.web.aop;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
-import com.eternal.web.type.ApiComponentType;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -17,9 +9,11 @@ import org.springframework.stereotype.Component;
 import com.eternal.web.logger.ApplicationLogger;
 import com.eternal.web.logger.RequestLogger;
 import com.eternal.web.logger.ResponseLogger;
+import com.eternal.web.type.ApiComponentType;
+import lombok.RequiredArgsConstructor;
 
 /**
- * ApiLogAspect
+ * APIのログアスペクトを定義する
  *
  * @author taiki0304
  */
@@ -61,9 +55,11 @@ public class ApiLogAspect {
     }
 
     /**
-     * エラーレスポンスログアスペク
+     * エラーレスポンスログアスペクト
+     *
      * @param response
      */
+    @SuppressWarnings("rawtypes")
     @AfterReturning(pointcut = "execution(* com.eternal.web.exception.GlobalExceptionHandler.handle*(..))", returning = "response")
     public void logErrorResponse(Object response) {
         if (response instanceof ResponseEntity) {
