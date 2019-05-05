@@ -5,7 +5,7 @@ import com.eternal.web.dto.TalkThemeDto;
 import com.eternal.web.dto.response.EvalTalkResponse;
 import com.eternal.web.dto.response.PostTalkResponse;
 import com.eternal.web.dto.response.TalkThemeListResponse;
-import com.eternal.web.entity.TalkThemeEntity;
+import com.eternal.web.entity.TalkTheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +26,10 @@ public class TalkThemeConverter {
     /**
      * Ref001_トークテーマ一覧取得用のレスポンスコンバーター
      *
-     * @param {@link TalkThemeEntity} entityList
+     * @param {@link TalkTheme} entityList
      * @return {@link TalkThemeListResponse}
      */
-    public TalkThemeListResponse convert(List<TalkThemeEntity> entityList) {
+    public TalkThemeListResponse convert(List<TalkTheme> entityList) {
         AtomicInteger order = new AtomicInteger();
         TalkThemeListResponse response = new TalkThemeListResponse();
         response.setTalkThemeList(entityList.stream().map(e -> TalkThemeDto.builder()
@@ -52,10 +52,10 @@ public class TalkThemeConverter {
     /**
      * Upd001_トークテーマ投稿用のレスポンスコンバーター
      *
-     * @param {@link TalkThemeEntity} entity
+     * @param {@link TalkTheme} entity
      * @return {@link PostTalkResponse}
      */
-    public PostTalkResponse convert(TalkThemeEntity entity, String message) {
+    public PostTalkResponse convert(TalkTheme entity, String message) {
         return PostTalkResponse.builder()
                 .message(message)
                 .talkThemeId(entity.getId())
@@ -65,10 +65,10 @@ public class TalkThemeConverter {
     /**
      * Upr002_トークテーマ評価用のコンバーター
      *
-     * @param {@link TalkThemeEntity} entity
+     * @param {@link TalkTheme} entity
      * @return {@linkEvalTalkResponse}
      */
-    public EvalTalkResponse convertEval(TalkThemeEntity entity) {
+    public EvalTalkResponse convertEval(TalkTheme entity) {
         return EvalTalkResponse.builder()
                 .talkThemeId(entity.getId())
                 .goodCount(entity.getGoodCount())

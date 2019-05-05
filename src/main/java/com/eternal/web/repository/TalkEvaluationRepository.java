@@ -5,7 +5,7 @@ package com.eternal.web.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.eternal.web.entity.TalkEvaluationEntity;
+import com.eternal.web.entity.TalkEvaluation;
 
 /**
  * TalkEvaluationRepository
@@ -13,6 +13,6 @@ import com.eternal.web.entity.TalkEvaluationEntity;
  * @author taiki0304
  */
 @Repository
-public interface TalkEvaluationRepository extends JpaRepository<TalkEvaluationEntity, Long> {
+public interface TalkEvaluationRepository extends JpaRepository<TalkEvaluation, Long> {
 
 }

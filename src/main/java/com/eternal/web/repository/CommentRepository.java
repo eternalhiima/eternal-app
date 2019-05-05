@@ -5,7 +5,7 @@ package com.eternal.web.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.eternal.web.entity.CommentEntity;
+import com.eternal.web.entity.Comment;
 
 /**
  * CommentRepository
@@ -13,6 +13,6 @@ import com.eternal.web.entity.CommentEntity;
  * @author taiki0304
  */
 @Repository
-public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
 }

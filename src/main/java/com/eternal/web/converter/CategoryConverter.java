@@ -2,7 +2,7 @@ package com.eternal.web.converter;
 
 import com.eternal.web.dto.CategoryDto;
 import com.eternal.web.dto.response.CategoryListResponse;
-import com.eternal.web.entity.CategoryEntity;
+import com.eternal.web.entity.Category;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class CategoryConverter {
      * @param categoryEntityList
      * @return {@link CategoryListResponse}
      */
-    public CategoryListResponse convert(List<CategoryEntity> categoryEntityList) {
+    public CategoryListResponse convert(List<Category> categoryEntityList) {
         CategoryListResponse response = new CategoryListResponse();
         response.setCategoryList(categoryEntityList.stream()
                 .map(e -> new CategoryDto(e.getId(), e.getCategoryName()))
