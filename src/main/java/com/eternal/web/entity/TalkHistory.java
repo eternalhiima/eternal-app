@@ -1,5 +1,6 @@
 package com.eternal.web.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import lombok.AccessLevel;
@@ -8,11 +9,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TALK_EVALUATION")
+@Table(name = "TALK_HISTORY")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TalkEvaluationEntity extends AbstractEntity {
+public class TalkHistory extends AbstractEntity {
 
     /** ユーザーID */
     private String userId;
@@ -20,8 +21,10 @@ public class TalkEvaluationEntity extends AbstractEntity {
     /** トークテーマID */
     private String talkThemeId;
 
-    /** 評価 */
-//    TODO: ENUMにする
-    private int evaluation;
+    /** 開始時刻 */
+    private LocalDateTime startDatetime;
+
+    /** 終了時刻 */
+    private LocalDateTime endDatetime;
 
 }

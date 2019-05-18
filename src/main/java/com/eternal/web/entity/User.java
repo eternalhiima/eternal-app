@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity extends AbstractEntity {
+public class User extends AbstractEntity {
 
     /** ユーザー名 */
     private String userName;
@@ -24,8 +24,8 @@ public class UserEntity extends AbstractEntity {
     /** 作成日時 */
     private LocalDateTime createDatetime;
 
-    public static UserEntity of(String userName) {
-        UserEntity entity = new UserEntity();
+    public static User of(String userName) {
+        User entity = new User();
         entity.userName = userName;
         // TODO: アイコンの設定
         entity.createDatetime = LocalDateTime.now();

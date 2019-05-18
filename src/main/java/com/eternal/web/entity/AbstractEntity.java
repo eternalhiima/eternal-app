@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.eternal.web.entity;
 
 import java.time.LocalDateTime;

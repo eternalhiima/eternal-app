@@ -7,16 +7,18 @@ package com.eternal.web.message;
  */
 public abstract class MessageCode {
 
-    /** {トークテーマタイトル}の投稿に成功しました。 */
-    public static final String POST_TALK_SUCCESS = "API10001";
-    /** {トークテーマタイトル}の投稿に失敗しました。もう一度トークテーマを投稿して下さい。 */
-    public static final String POST_TALK_FAILURE ="API10002";
+    /** {0}の投稿に成功しました。 */
+    public static final String POST_SUCCESS = "API10001";
+    /** {0}の投稿に失敗しました。  */
+    public static final String POST_FAILURE ="API10002";
     /** {ユーザー}はすでに使用されています。 */
     public static final String POST_DUPLICATE_USER = "API10003";
     /** 指定したカテゴリは存在しません。 */
     public static final String UNKNOWN_CATEGORY = "API10004";
     /** 指定したトークテーマは存在しません。 */
     public static final String UNKNOWN_TALK = "API10005";
+    /** 指定したユーザーは存在しません。 */
+    public static final String UNKNOWN_USER = "API10006";
 
     /** 単項目チェックエラー */
     public static final String VALIDATE_EXCEPTION = "API90000";

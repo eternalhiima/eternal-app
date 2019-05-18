@@ -13,17 +13,15 @@ import com.eternal.web.dto.request.PostTalkRequest;
 import com.eternal.web.type.EvaluationType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "TALK_THEME")
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class TalkThemeEntity extends AbstractEntity {
+public class TalkTheme extends AbstractEntity {
 
     /** タイトル */
     private String title;
@@ -53,7 +51,7 @@ public class TalkThemeEntity extends AbstractEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TALK_THEME_CATEGORY_BIND", joinColumns = @JoinColumn(name = "TALK_THEME_ID"),
             inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
-    private List<CategoryEntity> categoryList;
+    private List<Category> categoryList;
 
     /** 作成日時 */
     private LocalDateTime createDatetime;
@@ -63,10 +61,10 @@ public class TalkThemeEntity extends AbstractEntity {
      *
      * @param request {@link PostTalkRequest}
      * @param userId
-     * @return {@link TalkThemeEntity}
+     * @return {@link TalkTheme}
      */
-    public static TalkThemeEntity of(PostTalkRequest request, Long userId, List<CategoryEntity> categoryList) {
-        TalkThemeEntity entity = new TalkThemeEntity();
+    public static TalkTheme of(PostTalkRequest request, Long userId, List<Category> categoryList) {
+        TalkTheme entity = new TalkTheme();
         entity.title = request.getTitle();
         entity.content = request.getContent();
         entity.relatedUrl = request.getRelatedUrl();
@@ -82,19 +80,18 @@ public class TalkThemeEntity extends AbstractEntity {
     /**
      * トークテーマを評価する
      *
-     * @param {@link TalkThemeEntity} entity
      * @pram {@link EvaluationType} eval
-     * @return {@link TalkThemeEntity}
+     * @return {@link TalkTheme}
      */
-    public TalkThemeEntity eval(TalkThemeEntity entity, EvaluationType eval) {
+    public TalkTheme eval(EvaluationType eval) {
         switch (eval) {
             case GOOD:
-                entity.goodCount = entity.goodCount.add(BigDecimal.ONE);
+                goodCount = goodCount.add(BigDecimal.ONE);
                 break;
             case BAD:
-                entity.badCount = entity.badCount.add(BigDecimal.ONE);
+                badCount = badCount.add(BigDecimal.ONE);
                 break;
         }
-        return entity;
+        return this;
     }
 }
