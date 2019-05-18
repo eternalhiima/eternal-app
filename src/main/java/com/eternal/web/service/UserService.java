@@ -33,6 +33,7 @@ public class UserService {
      *
      * @param userName
      * @return {@link User}
+     * @throws {@link ServiceException}
      */
     @AppLog
     @Transactional
@@ -42,6 +43,19 @@ public class UserService {
                 .ifPresent(u -> throwUserDuplicateException(u.getUserName()));
         // ユーザーを新規作成
         return userRepository.saveAndFlush(User.of(userName));
+    }
+
+    /**
+     * {@link User}をIdで検索する
+     *
+     * @param userId
+     * @return {@link User}
+     * @throws {@link ServiceException}
+     */
+    public User findById(Long userId) {
+        return userRepository.findById(userId)
+        .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_USER,
+                messageSource.getMessage(MessageCode.UNKNOWN_USER)));
     }
 
     private void throwUserDuplicateException(String userName) {

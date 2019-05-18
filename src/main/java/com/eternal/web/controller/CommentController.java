@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.eternal.web.aop.ApiLog;
 import com.eternal.web.config.WebApiEndPoint;
+import com.eternal.web.dto.request.CommentListRequest;
 import com.eternal.web.dto.request.PostCommentRequest;
+import com.eternal.web.dto.request.TalkThemeListRequest;
+import com.eternal.web.dto.response.CommentListResponse;
 import com.eternal.web.dto.response.PostCommentResponse;
+import com.eternal.web.dto.response.TalkThemeListResponse;
 import com.eternal.web.service.CommentService;
 import com.eternal.web.type.ApiComponentType;
 import lombok.RequiredArgsConstructor;
@@ -21,17 +25,18 @@ public class CommentController {
 
     /** {@link CommentService} */
     private final CommentService commentService;
+
     /**
      * Ref003_コメント一覧取得
      *
      * @param {@link TalkThemeListRequest}
      * @return {@link TalkThemeListResponse}
      */
-//    @ApiLog(apiComponentType = ApiComponentType.REF003)
-//    @RequestMapping(value = WebApiEndPoint.COMMENTIST_END_POINT, method = RequestMethod.GET)
-//    public CategoryListResponse getCategoryList(@Validated CategoryListRequest request) {
-//        return categoryService.getCategoryList(request);
-//    }
+    @ApiLog(apiComponentType = ApiComponentType.REF003)
+    @RequestMapping(value = WebApiEndPoint.COMMENTIST_END_POINT, method = RequestMethod.GET)
+    public CommentListResponse getCategoryList(@Validated CommentListRequest request) {
+        return commentService.getCommentList(request);
+    }
 
     /**
      * Upd003_コメント投稿

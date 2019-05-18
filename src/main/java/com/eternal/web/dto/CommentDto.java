@@ -17,7 +17,7 @@ public class CommentDto {
     /** コメント */
     private String comment;
 
-    /** ユーザーId */
+    /** ユーザーID */
     private Long userId;
 
     /** ユーザー名 */

@@ -1,7 +1,10 @@
 package com.eternal.web.entity;
 
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -19,7 +22,9 @@ public class Comment extends AbstractEntity {
     private Long talkThemeId;
 
     /** ユーザーID */
-    private Long userId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private User user;
 
     /** コメント */
     private String comment;
@@ -31,14 +36,14 @@ public class Comment extends AbstractEntity {
      * {@link Comment}を作成する
      *
      * @param talkThemeId
-     * @param userId
+     * @param {@link User} user
      * @param comment
      * @return {@link Comment}
      */
-    public static Comment of(Long talkThemeId, Long userId, String comment) {
+    public static Comment of(Long talkThemeId, User user, String comment) {
         Comment entity = new Comment();
         entity.talkThemeId = talkThemeId;
-        entity.userId = userId;
+        entity.user = user;
         entity.comment = comment;
         entity.createDatetime = LocalDateTime.now();
         return entity;

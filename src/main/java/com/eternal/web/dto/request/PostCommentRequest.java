@@ -23,4 +23,9 @@ public class PostCommentRequest {
 
     /** ユーザーID */
     private Long userId;
+
+    /** ユーザー名 */
+    @NotEmpty(message = "{API90009}")
+    @Size(max = 10, message="{API90013}")
+    private String userName;
 }
