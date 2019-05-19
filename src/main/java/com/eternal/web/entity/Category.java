@@ -6,15 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import com.eternal.web.dto.CategoryDto;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "CATEGORY")
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Category extends AbstractEntity {
 
     /** カテゴリ名称 */
@@ -31,7 +29,7 @@ public class Category extends AbstractEntity {
 
     /**
      * カテゴリを新規に追加する
-     * @param dto {@link CategoryDto}
+     * @param {@link CategoryDto} dto
      * @return {@link Category}
      */
     public static Category of(CategoryDto dto) {
@@ -52,5 +50,14 @@ public class Category extends AbstractEntity {
     public Category add() {
         this.usedCount = this.getUsedCount().add(BigDecimal.ONE);
         return this;
+    }
+
+    /**
+     * Category.idの一致equals()をoverrideする
+     */
+    @Override
+    public boolean equals(Object obj) {
+        Category target = (Category)obj;
+        return this.getId() == target.getId();
     }
 }

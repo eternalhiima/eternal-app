@@ -1,10 +1,11 @@
 package com.eternal.web.exception;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
-
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,14 @@ import com.eternal.web.dto.response.ErrorInfoResponse;
 import com.eternal.web.dto.response.ErrorInfoResponse.ErrorInfo;
 import com.eternal.web.message.MessageCode;
 import com.eternal.web.message.MessageSourceImpl;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * 業務処理内のエラー処理クラス
+ *
+ * @author taiki0304
+ */
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -83,6 +90,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * {@link JsonMappingException}の処理
+     *
      * @param {@link JsonMappingException} e
      * @param {@link HttpHeaders} headers
      * @param {@link WebRequest}  request

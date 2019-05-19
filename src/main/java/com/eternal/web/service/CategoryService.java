@@ -12,6 +12,9 @@ import com.eternal.web.dto.CategoryDto;
 import com.eternal.web.dto.request.CategoryListRequest;
 import com.eternal.web.dto.response.CategoryListResponse;
 import com.eternal.web.entity.Category;
+import com.eternal.web.exception.ServiceException;
+import com.eternal.web.message.MessageCode;
+import com.eternal.web.message.MessageSourceImpl;
 import com.eternal.web.repository.CategoryRepository;
 import com.eternal.web.type.SortKeyType;
 import com.eternal.web.util.RepositoryUtil;
@@ -31,6 +34,8 @@ public class CategoryService {
 
     /** {@link CategoryConverter} */
     private final CategoryConverter converter;
+
+    private final MessageSourceImpl messageSource;
 
     /**
      * カテゴリのリストを取得する
@@ -52,7 +57,7 @@ public class CategoryService {
     }
 
     /**
-     * カテゴリが新規の場合は保存、すでに存在する場合は使用回数を増やす]
+     * カテゴリが新規の場合は保存、すでに存在する場合は使用回数を増やす
      *
      * @param {@link {@link CategoryDto} categoryDtoList
      * @return {@link Category}
@@ -66,5 +71,18 @@ public class CategoryService {
             return Category.of(d);
         }).collect(Collectors.toList());
         return categoryRepository.saveAll(categoryList);
+    }
+
+    /**
+     * カテゴリIDから{@link Category}を検索し返却する
+     *
+     * @param categoryId
+     * @return {@link Category}
+     * @throws {@link ServiceException}
+     */
+    public Category findById(Long categoryId) {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
+                        messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
     }
 }
