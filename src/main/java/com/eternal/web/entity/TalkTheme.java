@@ -12,15 +12,13 @@ import javax.persistence.Table;
 import com.eternal.web.dto.request.PostTalkRequest;
 import com.eternal.web.type.EvaluationType;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "TALK_THEME")
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TalkTheme extends AbstractEntity {
 
     /** タイトル */

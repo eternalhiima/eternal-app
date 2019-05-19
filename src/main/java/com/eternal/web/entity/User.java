@@ -4,15 +4,13 @@ import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USER")
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class User extends AbstractEntity {
 
     /** ユーザー名 */

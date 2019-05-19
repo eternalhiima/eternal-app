@@ -22,7 +22,6 @@ import com.eternal.web.entity.User;
 import com.eternal.web.exception.ServiceException;
 import com.eternal.web.message.MessageCode;
 import com.eternal.web.message.MessageSourceImpl;
-import com.eternal.web.repository.CategoryRepository;
 import com.eternal.web.repository.TalkThemeRepository;
 import com.eternal.web.util.RepositoryUtil;
 import lombok.RequiredArgsConstructor;
@@ -45,9 +44,6 @@ public class TalkThemeService {
     /** {@liml CategoryService} */
     private final CategoryService categoryService;
 
-    /** {@link CategoryRepository} */
-    private final CategoryRepository categoryRepository;
-
     /** {@link MessageSource} */
     private final MessageSourceImpl messageSource;
 
@@ -63,18 +59,15 @@ public class TalkThemeService {
     @AppLog
     public TalkThemeListResponse getTalkThemeList(TalkThemeListRequest request) {
         // DBよりトークテーマのリストを取得
-        List<TalkTheme> talkThemeEntityList = talkThemeRepository.findAll(PageRequest.of(request.getPage(),
-                request.getSize(), RepositoryUtil.sorter(request.getSortKey(), request.getSort()))).getContent();
+        List<TalkTheme> talkThemeList = talkThemeRepository.findAll(PageRequest.of(request.getPage(), request.getSize(),
+                RepositoryUtil.sorter(request.getSortKey(), request.getSort()))).getContent();
         if (Objects.nonNull(request.getCategoryId())) {
-            Category category = categoryRepository.findById(request.getCategoryId())
-                    .orElseThrow(() -> new ServiceException(MessageCode.UNKNOWN_CATEGORY,
-                            messageSource.getMessage(MessageCode.UNKNOWN_CATEGORY)));
             // カテゴリでフィルタリング
-            // FIXME: カテゴリでのフィルタリング機能がうまくいってないかも
-            talkThemeEntityList = talkThemeEntityList.stream().filter(e -> e.getCategoryList().contains(category))
+            Category category = categoryService.findById(request.getCategoryId());
+            talkThemeList = talkThemeList.stream().filter(e -> e.getCategoryList().contains(category))
                     .collect(Collectors.toList());
         }
-        return talkThemeConverter.convert(talkThemeEntityList);
+        return talkThemeConverter.convert(talkThemeList);
     }
 
     /**
@@ -91,8 +84,7 @@ public class TalkThemeService {
         // カテゴリが新規の場合は保存、すでに存在する場合は使用回数を増やす
         List<Category> categoryList = categoryService.addOrUpdateCategory(request.getCategoryList());
         // トークテーマを保存
-        TalkTheme talkTheme =
-                talkThemeRepository.saveAndFlush(TalkTheme.of(request, user.getId(), categoryList));
+        TalkTheme talkTheme = talkThemeRepository.saveAndFlush(TalkTheme.of(request, user.getId(), categoryList));
         String message = Objects.nonNull(talkTheme)
                 ? messageSource.getMessage(MessageCode.POST_SUCCESS, Arrays.asList(talkTheme.getTitle()))
                 : messageSource.getMessage(MessageCode.POST_FAILURE);
